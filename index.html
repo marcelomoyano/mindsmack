@@ -113,6 +113,26 @@
   .card.flagship { outline: 1px solid var(--signal-dim); outline-offset: -1px; }
   .card.flagship .num { color: var(--signal); }
 
+  /* whole-card click via stretched link, with chips as interactive exceptions */
+  .card .stretch { position: absolute; inset: 0; }
+  .card .stretch::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  .chips {
+    position: relative; z-index: 2;
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 2px;
+  }
+  .chips .lbl {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--fog-2); margin-right: 2px;
+  }
+  .chips a {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.03em;
+    color: var(--paper-dim); padding: 3px 9px;
+    border: 1px solid var(--line); border-radius: 999px;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .chips a:hover { border-color: var(--signal); color: var(--signal); background: rgba(77,224,200,0.07); }
+  .chips a.is-default { border-color: var(--signal-dim); color: var(--signal); }
+
   .foot {
     margin-top: 40px; padding-top: 22px; border-top: 1px dashed var(--line-soft);
     font-family: var(--mono); font-size: 12px; color: var(--fog-2);
@@ -129,13 +149,22 @@
     <p class="lead">Working drafts of the MindSmack landing page. Same studio, since 1999 — different visual register in each. Open any version below.</p>
 
     <div class="grid">
-      <a class="card flagship" href="./mindsmack-landing-v1.html">
+      <div class="card flagship">
+        <a class="stretch" href="./mindsmack-landing-v1.html" aria-label="Open v1"></a>
         <span class="num">v1 · flagship</span>
         <h2>Instrument Panel</h2>
         <p>DevOps, QA &amp; AI orchestration. Dark engineered UI, signal-teal accent, live WebGL glass orb.</p>
-        <span class="tag">Since 1999 · WebGL orb</span>
+        <div class="chips">
+          <span class="lbl">orb</span>
+          <a class="is-default" href="./mindsmack-landing-v1.html?style=glass">glass</a>
+          <a href="./mindsmack-landing-v1.html?style=glossy">glossy</a>
+          <a href="./mindsmack-landing-v1.html?style=ring">ring</a>
+          <a href="./mindsmack-landing-v1.html?style=ice">ice</a>
+          <a href="./mindsmack-landing-v1.html?style=ember">ember</a>
+          <a href="./mindsmack-landing-v1.html?style=aurora">aurora</a>
+        </div>
         <span class="go">Open v1 <span class="arrow">→</span></span>
-      </a>
+      </div>
 
       <a class="card" href="./mindsmack-landing-v2.html">
         <span class="num">v2</span>
@@ -145,13 +174,22 @@
         <span class="go">Open v2 <span class="arrow">→</span></span>
       </a>
 
-      <a class="card" href="./mindsmack-landing-v3.html">
+      <div class="card">
+        <a class="stretch" href="./mindsmack-landing-v3.html" aria-label="Open v3"></a>
         <span class="num">v3</span>
         <h2>Orb</h2>
         <p>The studio layout with the WebGL orb dropped into the hero.</p>
-        <span class="tag">Est. 1999 · WebGL orb</span>
+        <div class="chips">
+          <span class="lbl">orb</span>
+          <a class="is-default" href="./mindsmack-landing-v3.html?style=glass">glass</a>
+          <a href="./mindsmack-landing-v3.html?style=glossy">glossy</a>
+          <a href="./mindsmack-landing-v3.html?style=ring">ring</a>
+          <a href="./mindsmack-landing-v3.html?style=ice">ice</a>
+          <a href="./mindsmack-landing-v3.html?style=ember">ember</a>
+          <a href="./mindsmack-landing-v3.html?style=aurora">aurora</a>
+        </div>
         <span class="go">Open v3 <span class="arrow">→</span></span>
-      </a>
+      </div>
 
       <a class="card" href="./mindsmack-landing-v4.html">
         <span class="num">v4</span>
@@ -161,13 +199,21 @@
         <span class="go">Open v4 <span class="arrow">→</span></span>
       </a>
 
-      <a class="card" href="./mindsmack-landing-v5.html">
+      <div class="card">
+        <a class="stretch" href="./mindsmack-landing-v5.html" aria-label="Open v5"></a>
         <span class="num">v5</span>
         <h2>Nebula</h2>
-        <p>Black theme, bloom-lit nebula hero, MINDSMACK / Realtime Developers wordmark. Try <span style="color:var(--paper-dim)">?style=black</span>.</p>
-        <span class="tag">Est. 1999 · Nebula</span>
+        <p>Black theme, bloom-lit nebula hero, MINDSMACK / Realtime Developers wordmark.</p>
+        <div class="chips">
+          <span class="lbl">word</span>
+          <a class="is-default" href="./mindsmack-landing-v5.html">default</a>
+          <a href="./mindsmack-landing-v5.html?style=black">black</a>
+          <a href="./mindsmack-landing-v5.html?style=dark">dark</a>
+          <a href="./mindsmack-landing-v5.html?style=grey">grey</a>
+          <a href="./mindsmack-landing-v5.html?style=white">white</a>
+        </div>
         <span class="go">Open v5 <span class="arrow">→</span></span>
-      </a>
+      </div>
 
       <div class="card" style="background:var(--ink-2);justify-content:center;align-items:flex-start;">
         <span class="num">notes</span>
