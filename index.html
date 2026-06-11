@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MindSmack — Landing Page Versions</title>
+<meta name="robots" content="noindex" />
+<meta name="description" content="Internal index of MindSmack landing page concepts (v1–v5)." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0B0E14;
+    --ink-2: #11161F;
+    --panel: #151B26;
+    --line: #243140;
+    --line-soft: #1B2430;
+    --fog: #8A97A8;
+    --fog-2: #5E6B7C;
+    --paper: #EDF1F6;
+    --paper-dim: #C5CEDA;
+    --signal: #4DE0C8;
+    --signal-dim: #2A8C7E;
+    --r: 14px;
+    --maxw: 1080px;
+    --display: 'Space Grotesk', system-ui, sans-serif;
+    --body: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 60% 55% at 80% 8%, rgba(77,224,200,0.14), rgba(77,224,200,0.04) 42%, transparent 72%);
+  }
+  ::selection { background: var(--signal); color: var(--ink); }
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { position: relative; max-width: var(--maxw); margin: 0 auto; padding: 80px 28px 96px; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--signal);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .eyebrow::before { content: "["; color: var(--signal-dim); }
+  .eyebrow::after { content: "]"; color: var(--signal-dim); }
+
+  .brand { display: flex; align-items: center; gap: 11px; margin-bottom: 30px; }
+  .brand .dot {
+    width: 9px; height: 9px; border-radius: 50%; background: var(--signal);
+    box-shadow: 0 0 0 0 rgba(77,224,200,0.5); animation: pulse 2.6s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(77,224,200,0.45); }
+    70% { box-shadow: 0 0 0 9px rgba(77,224,200,0); }
+    100% { box-shadow: 0 0 0 0 rgba(77,224,200,0); }
+  }
+  @media (prefers-reduced-motion: reduce) { .brand .dot { animation: none; } }
+  .brand b { font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: -0.01em; }
+
+  h1 {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.04;
+    letter-spacing: -0.025em; margin: 20px 0 0; max-width: 18ch;
+  }
+  h1 em { font-style: normal; color: var(--signal); }
+  .lead { margin-top: 18px; color: var(--paper-dim); max-width: 56ch; font-size: 1.05rem; }
+
+  .grid {
+    margin-top: 52px; display: grid; gap: 1px;
+    background: var(--line-soft);
+    border: 1px solid var(--line-soft); border-radius: var(--r);
+    overflow: hidden;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--panel); padding: 26px 26px 24px;
+    display: flex; flex-direction: column; gap: 10px;
+    transition: background 0.2s, transform 0.15s;
+    position: relative; min-height: 178px;
+  }
+  .card:hover { background: var(--ink-2); }
+  .card .num { font-family: var(--mono); font-size: 12px; color: var(--signal-dim); letter-spacing: 0.12em; }
+  .card h2 { font-family: var(--display); font-weight: 600; font-size: 1.32rem; letter-spacing: -0.015em; }
+  .card p { color: var(--fog); font-size: 0.95rem; line-height: 1.5; flex: 1; }
+  .card .tag {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--fog-2);
+  }
+  .card .go {
+    font-family: var(--mono); font-size: 12.5px; color: var(--signal);
+    display: inline-flex; align-items: center; gap: 7px; margin-top: 4px;
+  }
+  .card .arrow { transition: transform 0.15s; }
+  .card:hover .arrow { transform: translateX(3px); }
+  .card.flagship { outline: 1px solid var(--signal-dim); outline-offset: -1px; }
+  .card.flagship .num { color: var(--signal); }
+
+  .foot {
+    margin-top: 40px; padding-top: 22px; border-top: 1px dashed var(--line-soft);
+    font-family: var(--mono); font-size: 12px; color: var(--fog-2);
+    display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: space-between;
+  }
+  .foot a:hover { color: var(--signal); }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="brand"><span class="dot" aria-hidden="true"></span><b>MindSmack</b></div>
+    <span class="eyebrow">Landing concepts · v1–v5</span>
+    <h1>Five directions for the <em>front door.</em></h1>
+    <p class="lead">Working drafts of the MindSmack landing page. Same studio, since 1999 — different visual register in each. Open any version below.</p>
+
+    <div class="grid">
+      <a class="card flagship" href="./mindsmack-landing-v1.html">
+        <span class="num">v1 · flagship</span>
+        <h2>Instrument Panel</h2>
+        <p>DevOps, QA &amp; AI orchestration. Dark engineered UI, signal-teal accent, live WebGL glass orb.</p>
+        <span class="tag">Since 1999 · WebGL orb</span>
+        <span class="go">Open v1 <span class="arrow">→</span></span>
+      </a>
+
+      <a class="card" href="./mindsmack-landing-v2.html">
+        <span class="num">v2</span>
+        <h2>Creative Studio</h2>
+        <p>Editorial "creative technology studio" cut. Big type, cobalt accent, horizontal era timeline.</p>
+        <span class="tag">Est. 1999 · Editorial</span>
+        <span class="go">Open v2 <span class="arrow">→</span></span>
+      </a>
+
+      <a class="card" href="./mindsmack-landing-v3.html">
+        <span class="num">v3</span>
+        <h2>Orb</h2>
+        <p>The studio layout with the WebGL orb dropped into the hero.</p>
+        <span class="tag">Est. 1999 · WebGL orb</span>
+        <span class="go">Open v3 <span class="arrow">→</span></span>
+      </a>
+
+      <a class="card" href="./mindsmack-landing-v4.html">
+        <span class="num">v4</span>
+        <h2>Black</h2>
+        <p>The black-theme variant with a rotating 3D cube in the hero.</p>
+        <span class="tag">Est. 1999 · 3D cube</span>
+        <span class="go">Open v4 <span class="arrow">→</span></span>
+      </a>
+
+      <a class="card" href="./mindsmack-landing-v5.html">
+        <span class="num">v5</span>
+        <h2>Nebula</h2>
+        <p>Black theme, bloom-lit nebula hero, MINDSMACK / Realtime Developers wordmark. Try <span style="color:var(--paper-dim)">?style=black</span>.</p>
+        <span class="tag">Est. 1999 · Nebula</span>
+        <span class="go">Open v5 <span class="arrow">→</span></span>
+      </a>
+
+      <div class="card" style="background:var(--ink-2);justify-content:center;align-items:flex-start;">
+        <span class="num">notes</span>
+        <p style="flex:none;color:var(--fog);">v1's orb and v5's nebula need WebGL; both fail gracefully. Booking CTAs route to <a href="https://cal.com/mindsmack/30min" style="color:var(--signal)">cal.com/mindsmack</a>.</p>
+      </div>
+    </div>
+
+    <div class="foot">
+      <span>© 1999–2026 MindSmack · 27 years shipping</span>
+      <a href="https://cal.com/mindsmack/30min" target="_blank" rel="noopener">Book a 30-min call →</a>
+    </div>
+  </main>
+</body>
+</html>

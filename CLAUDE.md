@@ -84,7 +84,7 @@ Type scale leans on `clamp()` for fluid headings — match existing clamps when 
 - **Cards** `.wedge-card` / `.form-card` — `--panel` bg, `--line-soft` border, `--r` radius. Hover: border brightens to `--line` and lifts `translateY(-3px)`. Corner index numerals (`.num`) in mono.
 - **List markers** — `--signal` 7px square rotated 45° (a teal diamond), not bullets/checks.
 - **Capabilities cells** `.cap` — flat ink-2 cells in the hairline-gap grid; hover steps bg to `--panel`.
-- **Stats** `.stat` — left hairline rule + big Space Grotesk numeral (`--paper`) + mono-ish label (`--fog`). Used for the 1999 / 20+ / 100% / 24/7 proof row.
+- **Stats** `.stat` — left hairline rule + big Space Grotesk numeral (`--paper`) + mono-ish label (`--fog`). Used for the 1999 / 27 / 100% / 24/7 proof row.
 - **Process steps** `.step` — 2px top rule, mono step number in teal, display h4.
 - **Form** dark `--ink` inputs, `--line` borders. Focus → `--signal` border **plus a soft 3px ambient ring** (`box-shadow: 0 0 0 3px rgba(77,224,200,0.15)`) — the one sanctioned input glow, adapted from xAI's focus ring.
 - **Nav** — sticky, translucent ink with `backdrop-filter: blur(14px)`, bottom hairline. Pill CTA with mono label, border brightens to teal on hover.
@@ -128,7 +128,7 @@ Write like a senior team that has been doing this since 1999 and has nothing to 
 - **Gritty, not corporate.** A little edge is on-brand. "The hard parts, handled." "Still shipping." "We tell you, honestly, where we'd start." Avoid hype words (transformation, synergy, revolutionary) — the site explicitly mocks "bolting a chatbot on and calling it transformation."
 - **Discretion as a flex.** The track record is white-label / under NDA, and that's pitched as a feature ("the discretion is the point"). Keep that posture — no fake logo walls.
 - **Human-in-control on AI.** Always frame AI as augmentation under senior judgment: "AI-augmented. Not AI-improvised." Never let copy imply the agents make the calls.
-- **Register cues:** mono captions can use `//` and `·` separators; numbers are concrete (20+, 1999, 100%, 24/7). Keep it confident, lightly defiant — **not** minimalist-precious.
+- **Register cues:** mono captions can use `//` and `·` separators; numbers are concrete (27, 1999, 100%, 24/7). Keep it confident, lightly defiant — **not** minimalist-precious.
 
 ---
 

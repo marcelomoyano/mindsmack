@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>MindSmack — Creative Technology Studio · Est. 2006 (Nebula)</title>
-<meta name="description" content="MindSmack is a creative technology studio with twenty years of taking products from idea to production. AI-augmented development, mobile and web applications, AWS cloud &amp; DevOps, quality engineering, and data.">
+<title>MindSmack — Creative Technology Studio · Est. 1999 (Nebula)</title>
+<meta name="description" content="MindSmack is a creative technology studio with twenty-seven years of taking products from idea to production. AI-augmented development, mobile and web applications, AWS cloud &amp; DevOps, quality engineering, and data.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -103,11 +103,11 @@ a{color:inherit}
 }
 .hero__stack h1{
   font-family:var(--display);font-weight:400;text-transform:uppercase;
-  text-align:center;line-height:.86;color:var(--bone);
+  text-align:center;line-height:.86;color:var(--wordmark, var(--bone));
 }
 .hero__stack h1 span{display:block;white-space:nowrap}
 .hero__line1{font-size:19.5vw;letter-spacing:.01em}
-.hero__line2{font-size:6.5vw;letter-spacing:.36em;margin-left:.36em;margin-top:1.2vw}
+.hero__line2{font-size:3.5vw;letter-spacing:.34em;margin-left:.34em;margin-top:1.6vw}
 .hero__corner{
   position:absolute;left:var(--gutter);bottom:28px;z-index:2;
   font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
@@ -312,6 +312,20 @@ body{background:#050507;color:var(--bone)}
 .fact dt{color:#8B8B95}
 .footer{background:#050507;border-top:1px solid rgba(244,244,239,.18)}
 </style>
+<script>
+  /* Wordmark color test harness — recolor the hero "MINDSMACK / TECHNOLOGY" via URL.
+     ?style=black|dark|grey|white   (named presets)
+     ?color=RRGGBB                  (any hex, e.g. ?color=ff4632)
+     No param -> default bone (off-white). Runs in <head> to avoid a color flash. */
+  (function () {
+    var p = new URLSearchParams(location.search);
+    var PRESETS = { black: '#000000', dark: '#0B0C10', grey: '#5E6170', white: '#F4F4EF', bone: '#F4F4EF' };
+    var hex = p.get('color');
+    var style = (p.get('style') || '').toLowerCase();
+    var c = hex ? '#' + hex.replace(/^#/, '') : PRESETS[style];
+    if (c) document.documentElement.style.setProperty('--wordmark', c);
+  })();
+</script>
 </head>
 <body>
 
@@ -323,16 +337,16 @@ body{background:#050507;color:var(--bone)}
     <li><a href="#work">Work</a></li>
     <li><a href="#capabilities">Capabilities</a></li>
     <li><a href="#studio">Studio</a></li>
-    <li><a class="nav__cta" href="mailto:hello@mindsmack.com">Start a project</a></li>
+    <li><a class="nav__cta" href="https://cal.com/mindsmack/30min" target="_blank" rel="noopener">Start a project</a></li>
   </ul>
 </nav>
 
 <header class="hero" id="top">
   <div class="hero__nebula" id="heroNebula" aria-hidden="true"></div>
   <div class="hero__stack">
-    <h1><span class="hero__line1" data-line>MindSmack</span><span class="hero__line2" data-line>Technology</span></h1>
+    <h1><span class="hero__line1" data-line>MindSmack</span><span class="hero__line2" data-line>Realtime Developers</span></h1>
   </div>
-  <p class="hero__corner">Est. 2006 — Idea &rarr; Production</p>
+  <p class="hero__corner">Est. 1999 — Idea &rarr; Production</p>
   <div class="hero__trusted" data-trusted>
     <span>Trusted across</span>
     <ul>
@@ -351,7 +365,7 @@ body{background:#050507;color:var(--bone)}
   <section class="section statement">
     <div class="shell">
       <p class="eyebrow">What we do</p>
-      <h2 id="statementHead">For twenty years, ideas have walked in here and walked out as production software. We design it, we engineer it, and we run it — <em>end to end.</em></h2>
+      <h2 id="statementHead">For twenty-seven years, ideas have walked in here and walked out as production software. We design it, we engineer it, and we run it — <em>end to end.</em></h2>
       <p data-reveal>Strategy, design, engineering, cloud, and quality under a single engagement. No hand-offs into the void, no integration roulette — one team owns the full lifecycle, from the first sketch to the release pipeline, and stays for the long run.</p>
     </div>
   </section>
@@ -425,16 +439,16 @@ body{background:#050507;color:var(--bone)}
   </section>
 
   <!-- ERAS -->
-  <section class="section eras" aria-label="Twenty years of firsts">
+  <section class="section eras" aria-label="Twenty-seven years of firsts">
     <div class="shell eras__head">
-      <p class="eyebrow">2006 → 2026 · Twenty years of firsts</p>
+      <p class="eyebrow">1999 → 2026 · Twenty-seven years of firsts</p>
     </div>
     <div class="eras__viewport" id="erasViewport">
       <div class="eras__track" id="erasTrack">
 
         <article class="era">
           <div>
-            <p class="era__year">2006</p>
+            <p class="era__year">1999</p>
             <p class="era__label">The rich web</p>
           </div>
           <div class="era__body">
@@ -550,11 +564,11 @@ body{background:#050507;color:var(--bone)}
       <div>
         <p class="eyebrow">The studio</p>
         <h2>Small by design. Senior by default.</h2>
-        <p>No account layers, no hand-offs into the void. The people you meet on day one are the people who design and build the work — partners who have been doing this together for two decades.</p>
+        <p>No account layers, no hand-offs into the void. The people you meet on day one are the people who design and build the work — partners who have been doing this together for 27 years.</p>
       </div>
       <dl class="studio__facts">
-        <div class="fact"><dt>Founded</dt><dd>2006</dd></div>
-        <div class="fact"><dt>Years shipping</dt><dd>20</dd></div>
+        <div class="fact"><dt>Founded</dt><dd>1999</dd></div>
+        <div class="fact"><dt>Years shipping</dt><dd>27</dd></div>
         <div class="fact"><dt>Base</dt><dd>New Jersey / NYC</dd></div>
         <div class="fact"><dt>Model</dt><dd>Full-cycle, founder-led</dd></div>
         <div class="fact"><dt>Disciplines</dt><dd>Design × Engineering × AI</dd></div>
@@ -574,7 +588,7 @@ body{background:#050507;color:var(--bone)}
       <li><a href="#" rel="noopener">Instagram</a></li>
       <li><a href="#" rel="noopener">X</a></li>
     </ul>
-    <span>© 2006–2026 MindSmack Inc.</span>
+    <span>© 1999–2026 MindSmack Inc.</span>
   </div>
 </footer>
 
