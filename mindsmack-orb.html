@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>MindSmack — Creative Technology Studio · Est. 2006 (Orb)</title>
+<meta name="description" content="MindSmack is a creative technology studio with twenty years of taking products from idea to production. AI-augmented development, mobile and web applications, AWS cloud &amp; DevOps, quality engineering, and data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cobalt:#1D2DF0;
+  --cobalt-deep:#1422C4;
+  --ink:#0B0C10;
+  --bone:#F4F4EF;
+  --bone-dim:#E7E7DF;
+  --tint:#D9DEFF;
+  --mute:#5E6170;
+  --display:'Anton', Impact, sans-serif;
+  --body:'Hanken Grotesk', system-ui, sans-serif;
+  --mono:'Spline Sans Mono', ui-monospace, monospace;
+  --gutter:clamp(20px, 4vw, 64px);
+  --maxw:1680px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+}
+body{
+  font-family:var(--body);
+  background:var(--bone);
+  color:var(--ink);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--cobalt);color:var(--bone)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--cobalt);outline-offset:3px}
+.hero :focus-visible, .footer :focus-visible{outline-color:var(--bone)}
+
+/* ---------- NAV ---------- */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px var(--gutter);
+  color:var(--bone);
+  transition:color .35s ease;
+  pointer-events:none;
+}
+.nav > *{pointer-events:auto}
+.nav.is-dark{color:var(--ink)}
+.nav__brand{
+  font-family:var(--display);
+  font-size:clamp(18px,1.6vw,24px);
+  letter-spacing:.04em;
+  text-decoration:none;
+  text-transform:uppercase;
+}
+.nav__links{display:flex;gap:clamp(14px,2.4vw,36px);align-items:center;list-style:none}
+.nav__links a{
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;opacity:.85;transition:opacity .2s;
+}
+.nav__links a:hover{opacity:1}
+.nav__cta{
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;
+  border:1px solid currentColor;border-radius:999px;
+  padding:10px 18px;
+  transition:background .25s,color .25s;
+}
+.nav.is-dark .nav__cta:hover{background:var(--ink);color:var(--bone)}
+.nav:not(.is-dark) .nav__cta:hover{background:var(--bone);color:var(--cobalt)}
+@media (max-width:720px){
+  .nav__links li:not(:last-child){display:none}
+}
+
+/* ---------- HERO (glass orb) ---------- */
+.hero{
+  position:relative;
+  height:100vh;
+  height:100svh;min-height:620px;
+  background:var(--ink);
+  color:var(--bone);
+  overflow:hidden;
+}
+.hero__bloom{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(72vmin,720px);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle, rgba(29,45,240,.32) 0%, rgba(29,45,240,.10) 42%, transparent 68%);
+  filter:blur(6px);
+  pointer-events:none;
+}
+.hero__stack{
+  position:absolute;inset:0;z-index:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  user-select:none;
+}
+.hero__stack h1{
+  font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(72px,17.5vw,300px);
+  line-height:.84;letter-spacing:.015em;
+  text-align:center;
+}
+.hero__stack h1 span{display:block}
+.hero__orb{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(52vmin,540px);aspect-ratio:1;
+  z-index:2;pointer-events:none;
+}
+.hero__orb canvas{width:100%;height:100%;display:block}
+.hero__deck{
+  position:absolute;left:0;right:0;bottom:0;z-index:3;
+  display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+  padding:0 var(--gutter) clamp(22px,4vh,44px);
+  pointer-events:none;
+}
+.hero__deck a{pointer-events:auto}
+.hero__tag{max-width:34ch;font-size:clamp(15px,1.25vw,19px);line-height:1.45;font-weight:500}
+.hero__tag strong{font-weight:700}
+.hero__meta{
+  text-align:right;font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;opacity:.85;line-height:2;
+}
+@media (max-width:720px){
+  .hero__deck{flex-direction:column;align-items:flex-start}
+  .hero__meta{text-align:left}
+  .hero__orb{width:62vmin}
+}
+
+/* ---------- SECTION SHELL ---------- */
+.section{padding:clamp(88px,12vw,180px) var(--gutter)}
+.shell{max-width:var(--maxw);margin:0 auto}
+.eyebrow{
+  font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--cobalt);display:flex;align-items:center;gap:14px;margin-bottom:clamp(28px,4vw,56px);
+}
+.eyebrow::after{content:"";height:1px;flex:1;background:currentColor;opacity:.35}
+
+/* ---------- STATEMENT ---------- */
+.statement h2{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(34px,5.4vw,92px);
+  line-height:1.04;letter-spacing:.005em;text-transform:uppercase;
+  max-width:18em;
+}
+.statement .w{display:inline-block;will-change:transform,opacity}
+.statement h2 em{font-style:normal;color:var(--cobalt)}
+.statement p{
+  margin-top:clamp(28px,3vw,44px);
+  max-width:46ch;font-size:clamp(16px,1.35vw,21px);color:var(--mute);font-weight:500;
+}
+
+/* ---------- CAPABILITIES ---------- */
+.caps{background:var(--ink);color:var(--bone)}
+.caps .eyebrow{color:var(--tint)}
+.cap{
+  position:relative;display:grid;
+  grid-template-columns:minmax(120px,.28fr) 1fr minmax(0,.9fr);
+  gap:clamp(16px,3vw,48px);align-items:baseline;
+  padding:clamp(26px,3.4vw,46px) 0;
+  border-top:1px solid rgba(244,244,239,.18);
+  overflow:hidden;
+}
+.cap:last-of-type{border-bottom:1px solid rgba(244,244,239,.18)}
+.cap__fill{
+  position:absolute;inset:0;background:var(--cobalt);
+  transform:scaleY(0);transform-origin:bottom;transition:transform .45s cubic-bezier(.65,0,.35,1);
+  z-index:0;
+}
+.cap:hover .cap__fill,.cap:focus-within .cap__fill{transform:scaleY(1)}
+.cap > *:not(.cap__fill){position:relative;z-index:1}
+.cap__tag{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.7}
+.cap__name{
+  font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(30px,4.6vw,76px);line-height:1;letter-spacing:.01em;
+}
+.cap__desc{max-width:46ch}
+.cap__desc p{font-size:clamp(15px,1.2vw,18px);color:var(--bone-dim);font-weight:500}
+.cap__stack{display:block;margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.55}
+@media (max-width:860px){
+  .cap{grid-template-columns:1fr;gap:10px;align-items:start}
+  .cap__desc{max-width:none}
+}
+
+/* ---------- ERAS (horizontal timeline) ---------- */
+.eras{background:var(--bone);overflow:hidden;padding-left:0;padding-right:0}
+.eras__head{padding:0 var(--gutter)}
+.eras__viewport{position:relative}
+.eras__track{
+  display:flex;gap:clamp(20px,2.5vw,40px);
+  padding:0 var(--gutter);
+  width:max-content;
+  will-change:transform;
+}
+.era{
+  width:clamp(300px,34vw,520px);flex:none;
+  border:1px solid var(--ink);
+  background:var(--bone);
+  padding:clamp(22px,2.4vw,36px);
+  display:flex;flex-direction:column;gap:clamp(40px,6vw,110px);
+  transition:background .3s,color .3s;
+}
+.era:hover{background:var(--cobalt);color:var(--bone);border-color:var(--cobalt)}
+.era:hover .era__year{color:var(--bone)}
+.era:hover .era__label{color:var(--tint)}
+.era__year{
+  font-family:var(--display);font-weight:400;color:var(--cobalt);
+  font-size:clamp(56px,7vw,120px);line-height:.95;letter-spacing:.01em;
+}
+.era__label{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.era__body h3{font-size:clamp(20px,1.8vw,28px);line-height:1.2;font-weight:700;margin:6px 0 10px}
+.era__body p{font-size:clamp(14px,1.1vw,17px);color:var(--mute);font-weight:500}
+.era:hover .era__body p{color:var(--bone-dim)}
+@media (max-width:899px){
+  .eras{padding-left:var(--gutter);padding-right:var(--gutter)}
+  .eras__head{padding:0}
+  .eras__track{flex-direction:column;width:auto;padding:0}
+  .era{width:100%}
+}
+
+/* ---------- WORK ---------- */
+.work__grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:clamp(20px,3vw,48px);
+}
+.case{display:block;text-decoration:none;color:inherit}
+.case__cover{
+  aspect-ratio:4/3;border:1px solid var(--ink);
+  position:relative;overflow:hidden;background:var(--tint);
+}
+.case__cover canvas{position:absolute;inset:0;width:100%;height:100%}
+.case__cover::after{
+  content:"VIEW CASE →";
+  position:absolute;right:14px;bottom:12px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+  background:var(--ink);color:var(--bone);padding:8px 12px;
+  opacity:0;transform:translateY(6px);transition:.3s;
+}
+.case:hover .case__cover::after,.case:focus-visible .case__cover::after{opacity:1;transform:translateY(0)}
+.case__meta{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:14px}
+.case__meta h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(20px,2vw,32px);letter-spacing:.015em}
+.case__meta span{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);text-align:right}
+@media (max-width:780px){.work__grid{grid-template-columns:1fr}}
+
+/* ---------- STUDIO ---------- */
+.studio{background:var(--tint)}
+.studio__grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(32px,5vw,96px)}
+.studio h2{
+  font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(30px,4.2vw,68px);line-height:1.05;
+}
+.studio__facts{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--ink)}
+.fact{display:flex;justify-content:space-between;gap:20px;padding:18px 0;border-bottom:1px solid var(--ink)}
+.fact dt{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--cobalt)}
+.fact dd{font-weight:700;text-align:right}
+.studio p{margin-top:24px;max-width:48ch;font-size:clamp(15px,1.25vw,19px);color:#3A3D4D;font-weight:500}
+@media (max-width:860px){.studio__grid{grid-template-columns:1fr}}
+
+/* ---------- FOOTER ---------- */
+.footer{
+  background:var(--cobalt);color:var(--bone);
+  padding:clamp(96px,14vw,200px) var(--gutter) 36px;
+  position:relative;overflow:hidden;
+}
+.footer__big{
+  display:block;text-decoration:none;
+  font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(44px,9.4vw,168px);line-height:.98;letter-spacing:.005em;
+  max-width:9em;
+}
+.footer__big em{font-style:normal;-webkit-text-stroke:2px var(--bone);color:transparent;transition:color .3s}
+.footer__big:hover em{color:var(--bone)}
+.footer__row{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;
+  margin-top:clamp(56px,8vw,120px);
+  font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+}
+.footer__row a{text-decoration:none;opacity:.9}
+.footer__row a:hover{opacity:1;text-decoration:underline}
+.footer__row ul{list-style:none;display:flex;gap:24px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<a class="sr-only" href="#main">Skip to content</a>
+
+<nav class="nav" id="nav" aria-label="Main">
+  <a class="nav__brand" href="#top">MindSmack<span aria-hidden="true">®</span></a>
+  <ul class="nav__links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#capabilities">Capabilities</a></li>
+    <li><a href="#studio">Studio</a></li>
+    <li><a class="nav__cta" href="mailto:hello@mindsmack.com">Start a project</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero__bloom" aria-hidden="true"></div>
+  <div class="hero__stack">
+    <h1><span data-line>Mind</span><span data-line>Smack</span></h1>
+  </div>
+  <div class="hero__orb" id="orbWrap" aria-hidden="true">
+    <canvas id="orbCanvas"></canvas>
+  </div>
+  <div class="hero__deck">
+    <p class="hero__tag" data-reveal><strong>The creative technology studio</strong> that takes products from idea to production — design, engineering, cloud, and AI under one roof.</p>
+    <p class="hero__meta" data-reveal>Est. 2006 — New Jersey / NYC<br>Design · Engineering · Cloud · AI</p>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- STATEMENT -->
+  <section class="section statement">
+    <div class="shell">
+      <p class="eyebrow">What we do</p>
+      <h2 id="statementHead">For twenty years, ideas have walked in here and walked out as production software. We design it, we engineer it, and we run it — <em>end to end.</em></h2>
+      <p data-reveal>Strategy, design, engineering, cloud, and quality under a single engagement. No hand-offs into the void, no integration roulette — one team owns the full lifecycle, from the first sketch to the release pipeline, and stays for the long run.</p>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section class="section caps" id="capabilities">
+    <div class="shell">
+      <p class="eyebrow">Capabilities</p>
+
+      <div class="cap" data-cap>
+        <div class="cap__fill" aria-hidden="true"></div>
+        <span class="cap__tag">AI</span>
+        <h3 class="cap__name">Augmented Development</h3>
+        <div class="cap__desc">
+          <p>Software built with AI in the loop — accelerating every phase of delivery without surrendering engineering judgment.</p>
+          <span class="cap__stack">Augmented SDLC · Tooling · Velocity</span>
+        </div>
+      </div>
+
+      <div class="cap" data-cap>
+        <div class="cap__fill" aria-hidden="true"></div>
+        <span class="cap__tag">Mobile</span>
+        <h3 class="cap__name">iOS &amp; Android</h3>
+        <div class="cap__desc">
+          <p>Native-quality apps from a unified codebase, shipped full-cycle — concept, design, backend, store, and beyond.</p>
+          <span class="cap__stack">React Native · Flutter · Swift</span>
+        </div>
+      </div>
+
+      <div class="cap" data-cap>
+        <div class="cap__fill" aria-hidden="true"></div>
+        <span class="cap__tag">Web</span>
+        <h3 class="cap__name">Platforms &amp; SaaS</h3>
+        <div class="cap__desc">
+          <p>Enterprise platforms, customer portals, and SaaS products that centralize workflows and scale with the business.</p>
+          <span class="cap__stack">Frontend · Backend · APIs · Integrations</span>
+        </div>
+      </div>
+
+      <div class="cap" data-cap>
+        <div class="cap__fill" aria-hidden="true"></div>
+        <span class="cap__tag">Cloud</span>
+        <h3 class="cap__name">AWS &amp; DevOps</h3>
+        <div class="cap__desc">
+          <p>Cloud-native architecture, infrastructure as code, and CI/CD pipelines that release faster, safer, on repeat.</p>
+          <span class="cap__stack">Terraform · Kubernetes · Serverless · CI/CD</span>
+        </div>
+      </div>
+
+      <div class="cap" data-cap>
+        <div class="cap__fill" aria-hidden="true"></div>
+        <span class="cap__tag">Quality</span>
+        <h3 class="cap__name">Engineering &amp; QA</h3>
+        <div class="cap__desc">
+          <p>Quality shifted left: manual and automated testing wired into every sprint, so every release ships with confidence.</p>
+          <span class="cap__stack">Automation · Regression · Performance · API</span>
+        </div>
+      </div>
+
+      <div class="cap" data-cap>
+        <div class="cap__fill" aria-hidden="true"></div>
+        <span class="cap__tag">Data</span>
+        <h3 class="cap__name">Mining &amp; Insight</h3>
+        <div class="cap__desc">
+          <p>Operational data turned into decisions — pipelines, models, and dashboards that make performance visible.</p>
+          <span class="cap__stack">Pipelines · Modeling · Dashboards</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ERAS -->
+  <section class="section eras" aria-label="Twenty years of firsts">
+    <div class="shell eras__head">
+      <p class="eyebrow">2006 → 2026 · Twenty years of firsts</p>
+    </div>
+    <div class="eras__viewport" id="erasViewport">
+      <div class="eras__track" id="erasTrack">
+
+        <article class="era">
+          <div>
+            <p class="era__year">2006</p>
+            <p class="era__label">The rich web</p>
+          </div>
+          <div class="era__body">
+            <h3>We open the studio.</h3>
+            <p>Flash-era microsites and campaign work for brands that wanted more than a page — craft first, even when the tools fought back.</p>
+          </div>
+        </article>
+
+        <article class="era">
+          <div>
+            <p class="era__year">2010</p>
+            <p class="era__label">The app decade</p>
+          </div>
+          <div class="era__body">
+            <h3>The iPhone changes the brief.</h3>
+            <p>We ship native from day one — interfaces designed for thumbs, engineered for hardware that fits in a pocket.</p>
+          </div>
+        </article>
+
+        <article class="era">
+          <div>
+            <p class="era__year">2015</p>
+            <p class="era__label">Everything responsive</p>
+          </div>
+          <div class="era__body">
+            <h3>One design, every screen.</h3>
+            <p>Design systems, video-first web, the death of "desktop only." We rebuild our practice around fluid everything.</p>
+          </div>
+        </article>
+
+        <article class="era">
+          <div>
+            <p class="era__year">2019</p>
+            <p class="era__label">Cloud-native</p>
+          </div>
+          <div class="era__body">
+            <h3>The infrastructure becomes code.</h3>
+            <p>Terraform, containers, serverless. We rebuild delivery around automation, and releases stop being events.</p>
+          </div>
+        </article>
+
+        <article class="era">
+          <div>
+            <p class="era__year">2022</p>
+            <p class="era__label">Continuous everything</p>
+          </div>
+          <div class="era__body">
+            <h3>Quality moves into the sprint.</h3>
+            <p>Shift-left QA, CI/CD on every project, deployment verification by default. Shipping daily becomes the baseline.</p>
+          </div>
+        </article>
+
+        <article class="era">
+          <div>
+            <p class="era__year">2026</p>
+            <p class="era__label">AI-augmented</p>
+          </div>
+          <div class="era__body">
+            <h3>Software, built with AI in the loop.</h3>
+            <p>AI-augmented development changes the economics of the craft. The next twenty years start here.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="section work" id="work">
+    <div class="shell">
+      <p class="eyebrow">Selected work</p>
+      <div class="work__grid">
+
+        <a class="case" href="#contact" data-cover="waves">
+          <div class="case__cover"><canvas aria-hidden="true"></canvas></div>
+          <div class="case__meta">
+            <h3>Field Ops, Connected</h3>
+            <span>Enterprise Mobile<br>React Native</span>
+          </div>
+        </a>
+
+        <a class="case" href="#contact" data-cover="grid">
+          <div class="case__cover"><canvas aria-hidden="true"></canvas></div>
+          <div class="case__meta">
+            <h3>The Single Pane</h3>
+            <span>Operations Platform<br>SaaS</span>
+          </div>
+        </a>
+
+        <a class="case" href="#contact" data-cover="orbit">
+          <div class="case__cover"><canvas aria-hidden="true"></canvas></div>
+          <div class="case__meta">
+            <h3>Zero Downtime, By Design</h3>
+            <span>Cloud Migration<br>AWS · DevOps</span>
+          </div>
+        </a>
+
+        <a class="case" href="#contact" data-cover="pulse">
+          <div class="case__cover"><canvas aria-hidden="true"></canvas></div>
+          <div class="case__meta">
+            <h3>Ship Every Day</h3>
+            <span>Quality Engineering<br>CI/CD</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STUDIO -->
+  <section class="section studio" id="studio">
+    <div class="shell studio__grid">
+      <div>
+        <p class="eyebrow">The studio</p>
+        <h2>Small by design. Senior by default.</h2>
+        <p>No account layers, no hand-offs into the void. The people you meet on day one are the people who design and build the work — partners who have been doing this together for two decades.</p>
+      </div>
+      <dl class="studio__facts">
+        <div class="fact"><dt>Founded</dt><dd>2006</dd></div>
+        <div class="fact"><dt>Years shipping</dt><dd>20</dd></div>
+        <div class="fact"><dt>Base</dt><dd>New Jersey / NYC</dd></div>
+        <div class="fact"><dt>Model</dt><dd>Full-cycle, founder-led</dd></div>
+        <div class="fact"><dt>Disciplines</dt><dd>Design × Engineering × AI</dd></div>
+      </dl>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER / CTA -->
+<footer class="footer" id="contact">
+  <a class="footer__big" href="mailto:hello@mindsmack.com">Have an <em>impossible</em> brief? Smack us.</a>
+  <div class="footer__row">
+    <a href="mailto:hello@mindsmack.com">hello@mindsmack.com</a>
+    <ul>
+      <li><a href="#" rel="noopener">LinkedIn</a></li>
+      <li><a href="#" rel="noopener">Instagram</a></li>
+      <li><a href="#" rel="noopener">X</a></li>
+    </ul>
+    <span>© 2006–2026 MindSmack Inc.</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ============================================================
+     MINDSMACK HERO ORB — Marcelo's orb.js, adapted for the
+     single-file build (global THREE, glass preset default).
+     URL-param rig intact: ?style=ring|ice|ember|aurora|glass|glossy
+     plus any config key override, e.g. ?gloss=2&bandIntensity=1.8
+     ============================================================ */
+/* ============================================================================
+ * MindSmack hero orb — our own Three.js build
+ *
+ * Technique-inspired by Bruno Simon's "organic-sphere", but contains NONE of
+ * his code (UNLICENSED / all rights reserved). Built from scratch on MIT Three.js
+ * + public-domain Ashima simplex noise.
+ *
+ * TWO RENDER MODES:
+ *   'ring'  — near-circular additive glass ring, warm/cool angular rim (our default).
+ *   'glass' — solid dark glass ball with an internal iridescent energy band + gloss
+ *             (Siri-style). 'glossy' is a band-less, high-spec variant of this mode.
+ *
+ * ---- LOCAL TESTING via URL params (served over http, see note at bottom) ----
+ *   ?style=NAME           pick a preset (ring|ice|ember|aurora|glass|glossy)
+ *   ?style=glass&gloss=2  …then override ANY config key below, e.g.:
+ *   ?intensity=1.5  ?distortStrength=0.09  ?spinSpeed=0  ?bandIntensity=2
+ *   ?colorWarm=ff4632  ?colorCool=56c7ff   (hex WITHOUT the #, since # is a URL fragment)
+ *   ?cameraZ=3.0        (numbers parse as floats; colours as hex strings)
+ * The active config is logged to the console so you can see what's applied.
+ *
+ * Opening the .html via file:// blocks this module in Chrome — serve over http:
+ *   python3 -m http.server 5500 --directory <project root>
+ *   → http://localhost:5500/mindsmack-landing.html?style=glass
+ * ========================================================================== */
+
+// THREE provided globally by cdnjs build
+
+// ---- full default config (every key here is URL-overridable) ----------------
+const BASE = {
+  mode: 'ring',
+  // shape (both modes)
+  distortFreq: 0.85, distortStrength: 0.055, displaceFreq: 1.3, displaceStrength: 0.03,
+  // motion (both modes)
+  morphSpeed: 0.35, spinSpeed: 0.05,
+  // framing / quality (both modes)
+  cameraZ: 3.4, detailDesktop: 48, detailMobile: 24,
+  // RING mode — warm/cool angular rim
+  colorCool: '#4DE0C8', colorWarm: '#F2B24B', warmDirX: 1.0, warmDirY: 1.0, intensity: 1.2,
+  // GLASS mode — glass body, internal band, gloss
+  glassColor: '#0a0e14', rimColor: '#bfeaff', rimStrength: 0.6,
+  gloss: 1.0, shininess: 48.0, lightX: -0.6, lightY: 0.8, lightZ: 0.6,
+  bandIntensity: 1.4, bandWidth: 0.05, bandWave: 0.18, bandFreq: 2.2, bandSpeed: 0.25,
+};
+
+// ---- named presets (only list what differs from BASE) -----------------------
+const PRESETS = {
+  ring:   { mode: 'ring' },
+  ice:    { mode: 'ring', colorCool: '#56C7FF', colorWarm: '#6E7BFF' },
+  ember:  { mode: 'ring', colorCool: '#F2B24B', colorWarm: '#FF4632' },
+  aurora: { mode: 'ring', colorCool: '#4DE0C8', colorWarm: '#9B6BFF' },
+  glass:  { mode: 'glass', spinSpeed: 0.0, distortStrength: 0.025, displaceStrength: 0.02, bandIntensity: 1.5 },
+  glossy: { mode: 'glass', spinSpeed: 0.03, distortStrength: 0.03, bandIntensity: 0.0,
+            rimColor: '#4DE0C8', rimStrength: 1.0, gloss: 1.9, shininess: 80.0, glassColor: '#0c1117' },
+};
+
+// ---- resolve config from URL ------------------------------------------------
+function resolveConfig(){
+  const params = new URLSearchParams(location.search);
+  const styleName = params.get('style') || params.get('orb') || 'glass';
+  const cfg = Object.assign({}, BASE, PRESETS[styleName] || PRESETS.glass);
+  for (const [k, v] of params){
+    if (k === 'style' || k === 'orb' || !(k in cfg)) continue;
+    const cur = cfg[k];
+    if (typeof cur === 'number') cfg[k] = parseFloat(v);
+    else if (typeof cur === 'string' && cur.startsWith('#')) cfg[k] = '#' + v.replace(/^#/, '');
+    else cfg[k] = v;
+  }
+  console.log('[orb] style:', styleName, '\n[orb] presets:', Object.keys(PRESETS).join(' | '), '\n[orb] config:', cfg);
+  return cfg;
+}
+
+// ---- shared noise + displacement chunk (GLSL) -------------------------------
+const NOISE_GLSL = `
+  // Ashima Arts simplex noise 3D — public domain
+  vec4 permute(vec4 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
+  vec4 taylorInvSqrt(vec4 r){ return 1.79284291400159 - 0.85373472095314 * r; }
+  float snoise(vec3 v){
+    const vec2 C = vec2(1.0/6.0, 1.0/3.0);
+    const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+    vec3 i  = floor(v + dot(v, C.yyy));
+    vec3 x0 = v - i + dot(i, C.xxx);
+    vec3 g = step(x0.yzx, x0.xyz);
+    vec3 l = 1.0 - g;
+    vec3 i1 = min(g.xyz, l.zxy);
+    vec3 i2 = max(g.xyz, l.zxy);
+    vec3 x1 = x0 - i1 + C.xxx;
+    vec3 x2 = x0 - i2 + C.yyy;
+    vec3 x3 = x0 - D.yyy;
+    i = mod(i, 289.0);
+    vec4 p = permute(permute(permute(
+               i.z + vec4(0.0, i1.z, i2.z, 1.0))
+             + i.y + vec4(0.0, i1.y, i2.y, 1.0))
+             + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+    float n_ = 1.0/7.0;
+    vec3 ns = n_ * D.wyz - D.xzx;
+    vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+    vec4 x_ = floor(j * ns.z);
+    vec4 y_ = floor(j - 7.0 * x_);
+    vec4 x = x_ * ns.x + ns.yyyy;
+    vec4 y = y_ * ns.x + ns.yyyy;
+    vec4 h = 1.0 - abs(x) - abs(y);
+    vec4 b0 = vec4(x.xy, y.xy);
+    vec4 b1 = vec4(x.zw, y.zw);
+    vec4 s0 = floor(b0) * 2.0 + 1.0;
+    vec4 s1 = floor(b1) * 2.0 + 1.0;
+    vec4 sh = -step(h, vec4(0.0));
+    vec4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;
+    vec4 a1 = b1.xzyw + s1.xzyw * sh.zzww;
+    vec3 p0 = vec3(a0.xy, h.x);
+    vec3 p1 = vec3(a0.zw, h.y);
+    vec3 p2 = vec3(a1.xy, h.z);
+    vec3 p3 = vec3(a1.zw, h.w);
+    vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
+    p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+    vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+    m = m * m;
+    return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
+  }
+`;
+
+// displace() needs the distortion uniforms — vertex-shader only (keep it OUT of the
+// fragment, which only wants snoise; otherwise the frag references undeclared uniforms)
+const DISPLACE_GLSL = `
+  vec3 displace(vec3 p){
+    vec3 dir = normalize(p);
+    float distort = snoise(p * uDistortFreq + vec3(0.0, 0.0, uTime)) * uDistortStrength;
+    vec3 q = p + dir * distort;
+    float disp = snoise(q * uDisplaceFreq + vec3(uTime * 0.7));
+    return q + dir * disp * uDisplaceStrength;
+  }
+`;
+
+// ---- one vertex shader feeds both modes -------------------------------------
+const VERT = `
+  uniform float uTime, uDistortFreq, uDistortStrength, uDisplaceFreq, uDisplaceStrength;
+  varying vec3 vNormal;   // view-space normal
+  varying vec3 vView;     // view vector
+  varying vec3 vObjPos;   // stable object-space position (for the band)
+  ${NOISE_GLSL}
+  ${DISPLACE_GLSL}
+  void main(){
+    vObjPos = position;
+    vec3 displaced = displace(position);
+    vec3 n  = normalize(position);
+    vec3 up = mix(vec3(0.0,1.0,0.0), vec3(1.0,0.0,0.0), step(0.99, abs(n.y)));
+    vec3 t  = normalize(cross(n, up));
+    vec3 bt = normalize(cross(n, t));
+    float eps = 0.0015;
+    vec3 pa = displace(position + t  * eps);
+    vec3 pb = displace(position + bt * eps);
+    vec3 newNormal = normalize(cross(pa - displaced, pb - displaced));
+    if (dot(newNormal, n) < 0.0) newNormal = -newNormal;
+    vec4 mv = modelViewMatrix * vec4(displaced, 1.0);
+    vView   = -mv.xyz;
+    vNormal = normalMatrix * newNormal;
+    gl_Position = projectionMatrix * mv;
+  }
+`;
+
+// ---- RING mode (additive) ---------------------------------------------------
+const FRAG_RING = `
+  precision highp float;
+  uniform vec3 uColorA, uColorB;
+  uniform vec2 uWarmDir;
+  uniform float uIntensity;
+  varying vec3 vNormal; varying vec3 vView; varying vec3 vObjPos;
+  void main(){
+    vec3 normal = normalize(vNormal);
+    vec3 view   = normalize(vView);
+    float fres = 1.0 - clamp(dot(normal, view), 0.0, 1.0);
+    float glow = pow(fres, 2.0);
+    float core = pow(fres, 9.0);
+    vec2  dir = normalize(vNormal.xy + 1e-5);
+    float t   = dot(dir, normalize(uWarmDir)) * 0.5 + 0.5;
+    vec3  col = mix(uColorA, uColorB, smoothstep(0.12, 0.88, t));
+    vec3  outColor = col * glow * uIntensity + vec3(1.0) * core * 0.7;
+    float alpha    = clamp(glow * 1.1 + core, 0.0, 1.0);
+    gl_FragColor = vec4(outColor, alpha);
+  }
+`;
+
+// ---- GLASS mode (solid, internal iridescent band + gloss) -------------------
+const FRAG_GLASS = `
+  precision highp float;
+  uniform float uTime;
+  uniform vec3 uGlassColor, uRimColor, uLightDir;
+  uniform float uRimStrength, uGloss, uShininess;
+  uniform float uBandIntensity, uBandWidth, uBandWave, uBandFreq, uBandSpeed;
+  varying vec3 vNormal; varying vec3 vView; varying vec3 vObjPos;
+  ${NOISE_GLSL}
+  vec3 spectrum(float t){               // blue -> cyan -> white -> orange -> red
+    t = clamp(t, 0.0, 1.0);
+    if (t < 0.25) return mix(vec3(0.10,0.30,1.00), vec3(0.00,0.90,1.00), t/0.25);
+    if (t < 0.50) return mix(vec3(0.00,0.90,1.00), vec3(1.00,1.00,1.00), (t-0.25)/0.25);
+    if (t < 0.75) return mix(vec3(1.00,1.00,1.00), vec3(1.00,0.58,0.10), (t-0.50)/0.25);
+    return                mix(vec3(1.00,0.58,0.10), vec3(1.00,0.16,0.10), (t-0.75)/0.25);
+  }
+  void main(){
+    vec3 normal = normalize(vNormal);
+    vec3 view   = normalize(vView);
+    float ndv = max(dot(normal, view), 0.0);
+    float fres = pow(1.0 - ndv, 3.0);
+
+    // internal horizontal energy band, centre line waves over time
+    float yc   = snoise(vec3(vObjPos.x * uBandFreq, uTime * uBandSpeed, 0.0)) * uBandWave;
+    float dpos = vObjPos.y - yc;
+    float band = exp(-(dpos*dpos) / uBandWidth);
+    band *= smoothstep(1.0, 0.45, length(vObjPos.xy));   // keep it inside the ball
+    vec3 bandCol = spectrum(vObjPos.x * 0.5 + 0.5) * band * uBandIntensity;
+
+    // glossy specular highlight
+    vec3 H = normalize(normalize(uLightDir) + view);
+    float spec = pow(max(dot(normal, H), 0.0), uShininess) * uGloss;
+
+    vec3 rim = uRimColor * fres * uRimStrength;
+    vec3 col = uGlassColor + bandCol + rim + vec3(spec);
+    gl_FragColor = vec4(col, 1.0);
+  }
+`;
+
+(function initOrb(){
+  const canvas = document.getElementById('orbCanvas');
+  if (!canvas) return;
+  const container = canvas.parentElement;
+  const cfg = resolveConfig();
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
+  } catch (e) {
+    container.style.display = 'none';   // no WebGL -> fall back to the CSS bloom + arc
+    return;
+  }
+  renderer.setClearColor(0x000000, 0);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(0, 0, cfg.cameraZ);
+
+  const uniforms = {
+    uTime:             { value: 0 },
+    uDistortFreq:      { value: cfg.distortFreq },
+    uDistortStrength:  { value: cfg.distortStrength },
+    uDisplaceFreq:     { value: cfg.displaceFreq },
+    uDisplaceStrength: { value: cfg.displaceStrength },
+    // ring
+    uColorA:  { value: new THREE.Color(cfg.colorCool) },
+    uColorB:  { value: new THREE.Color(cfg.colorWarm) },
+    uWarmDir: { value: new THREE.Vector2(cfg.warmDirX, cfg.warmDirY) },
+    uIntensity: { value: cfg.intensity },
+    // glass
+    uGlassColor: { value: new THREE.Color(cfg.glassColor) },
+    uRimColor:   { value: new THREE.Color(cfg.rimColor) },
+    uRimStrength:{ value: cfg.rimStrength },
+    uGloss:      { value: cfg.gloss },
+    uShininess:  { value: cfg.shininess },
+    uLightDir:   { value: new THREE.Vector3(cfg.lightX, cfg.lightY, cfg.lightZ) },
+    uBandIntensity: { value: cfg.bandIntensity },
+    uBandWidth:  { value: cfg.bandWidth },
+    uBandWave:   { value: cfg.bandWave },
+    uBandFreq:   { value: cfg.bandFreq },
+    uBandSpeed:  { value: cfg.bandSpeed },
+  };
+
+  const isGlass = cfg.mode === 'glass';
+  const material = new THREE.ShaderMaterial({
+    vertexShader: VERT,
+    fragmentShader: isGlass ? FRAG_GLASS : FRAG_RING,
+    uniforms,
+    transparent: !isGlass,
+    blending: isGlass ? THREE.NormalBlending : THREE.AdditiveBlending,
+    depthWrite: isGlass,
+  });
+
+  const detail = window.innerWidth < 860 ? cfg.detailMobile : cfg.detailDesktop;
+  const mesh = new THREE.Mesh(new THREE.IcosahedronGeometry(1, detail), material);
+  scene.add(mesh);
+
+  function resize(){
+    const w = container.clientWidth, h = container.clientHeight;
+    if (!w || !h) return;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  let running = false, visible = true, last = 0;
+
+  function render(){
+    renderer.render(scene, camera);
+  }
+  function loop(){
+    if (running || reduceMotion) return;
+    running = true;
+    last = performance.now();   // reset so a resume after pause doesn't jump
+    (function frame(){
+      if (!visible){ running = false; return; }
+      const now = performance.now();
+      uniforms.uTime.value += Math.min((now - last) / 1000, 0.05) * cfg.morphSpeed;
+      last = now;
+      render();
+      requestAnimationFrame(frame);
+    })();
+  }
+
+  if ('IntersectionObserver' in window){
+    new IntersectionObserver((es) => { visible = es[0].isIntersecting; if (visible) loop(); }, { threshold: 0 }).observe(container);
+  }
+
+  // ---- pointer parallax: orb tilts toward cursor, key light follows ----
+  if (!reduceMotion){
+    const hero = document.querySelector('.hero');
+    const target = { rx: 0, ry: 0, lx: cfg.lightX, ly: cfg.lightY };
+    if (hero){
+      hero.addEventListener('pointermove', (e) => {
+        const r = hero.getBoundingClientRect();
+        const nx = (e.clientX - r.left) / r.width  * 2 - 1;   // -1..1
+        const ny = (e.clientY - r.top)  / r.height * 2 - 1;
+        target.ry = nx * 0.35;
+        target.rx = ny * 0.25;
+        target.lx = cfg.lightX + nx * 0.9;
+        target.ly = cfg.lightY - ny * 0.9;
+      });
+    }
+    (function parallax(){
+      mesh.rotation.y += (target.ry + uniforms.uTime.value * cfg.spinSpeed - mesh.rotation.y) * 0.06;
+      mesh.rotation.x += (target.rx - mesh.rotation.x) * 0.06;
+      uniforms.uLightDir.value.x += (target.lx - uniforms.uLightDir.value.x) * 0.06;
+      uniforms.uLightDir.value.y += (target.ly - uniforms.uLightDir.value.y) * 0.06;
+      requestAnimationFrame(parallax);
+    })();
+  }
+
+  if (reduceMotion){ uniforms.uTime.value = 2.0; render(); } else { loop(); }
+})();
+
+
+  /* ============================================================
+     CASE COVERS — lightweight generative 2D canvas thumbnails
+     ============================================================ */
+  function paintCover(cv, kind) {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = cv.clientWidth * dpr, h = cv.clientHeight * dpr;
+    if (!w || !h) return;
+    cv.width = w; cv.height = h;
+    var ctx = cv.getContext('2d');
+    ctx.fillStyle = '#D9DEFF'; ctx.fillRect(0, 0, w, h);
+    ctx.strokeStyle = '#1D2DF0'; ctx.fillStyle = '#1D2DF0';
+    ctx.lineWidth = Math.max(1.5, w / 400);
+    var i, j;
+    if (kind === 'waves') {
+      for (i = 0; i < 14; i++) {
+        ctx.beginPath();
+        for (j = 0; j <= 60; j++) {
+          var x = (j / 60) * w;
+          var y = h * (0.18 + i * 0.05) + Math.sin(j * 0.35 + i * 0.8) * h * 0.03 * (1 + i * 0.12);
+          j ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+        }
+        ctx.stroke();
+      }
+    } else if (kind === 'grid') {
+      var cell = w / 10;
+      for (i = 0; i < 10; i++) for (j = 0; j < Math.ceil(h / cell); j++) {
+        if ((i * 7 + j * 13) % 5 === 0) ctx.fillRect(i * cell, j * cell, cell, cell);
+        else ctx.strokeRect(i * cell, j * cell, cell, cell);
+      }
+    } else if (kind === 'orbit') {
+      var cx = w / 2, cy = h / 2;
+      for (i = 1; i <= 7; i++) {
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, (w * 0.06) * i, (w * 0.025) * i, -0.5, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.beginPath(); ctx.arc(cx, cy, w * 0.035, 0, Math.PI * 2); ctx.fill();
+    } else { // pulse
+      var n = 24;
+      for (i = 0; i < n; i++) {
+        var bx = (i + 0.5) * (w / n);
+        var bh = h * (0.18 + 0.62 * Math.abs(Math.sin(i * 0.55)));
+        ctx.fillRect(bx - w / n * 0.32, h - bh, w / n * 0.64, bh);
+      }
+    }
+  }
+  function paintAllCovers() {
+    document.querySelectorAll('.case').forEach(function (c) {
+      paintCover(c.querySelector('canvas'), c.getAttribute('data-cover'));
+    });
+  }
+  paintAllCovers();
+  var coverRz; window.addEventListener('resize', function () {
+    clearTimeout(coverRz); coverRz = setTimeout(paintAllCovers, 200);
+  });
+
+  /* ============================================================
+     GSAP — nav state, reveals, statement split, pinned timeline
+     ============================================================ */
+  if (!window.gsap) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // nav switches to dark text once past the cobalt hero
+  ScrollTrigger.create({
+    trigger: '.hero',
+    start: 'bottom 60px',
+    onEnter: function () { document.getElementById('nav').classList.add('is-dark'); },
+    onLeaveBack: function () { document.getElementById('nav').classList.remove('is-dark'); }
+  });
+  // footer is cobalt again
+  ScrollTrigger.create({
+    trigger: '.footer',
+    start: 'top 60px',
+    onEnter: function () { document.getElementById('nav').classList.remove('is-dark'); },
+    onLeaveBack: function () { document.getElementById('nav').classList.add('is-dark'); }
+  });
+
+  if (prefersReduced) return; // structure stays fully readable without motion
+
+  // hero entrance: stacked wordmark rises, orb blooms in, deck follows
+  gsap.from('.hero__stack [data-line]', { yPercent: 60, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: 0.1, delay: 0.25 });
+  gsap.from('#orbWrap', { scale: 0.55, opacity: 0, duration: 1.4, ease: 'power3.out', delay: 0.45 });
+  gsap.from('.hero__bloom', { opacity: 0, duration: 1.8, delay: 0.45 });
+  gsap.from('.hero__deck [data-reveal]', { y: 26, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.12, delay: 0.8 });
+
+  // statement: word-by-word rise
+  var head = document.getElementById('statementHead');
+  (function splitWords(el) {
+    var nodes = Array.prototype.slice.call(el.childNodes);
+    el.innerHTML = '';
+    nodes.forEach(function (n) {
+      if (n.nodeType === 3) {
+        n.textContent.split(/\s+/).forEach(function (wd) {
+          if (!wd) return;
+          var s = document.createElement('span');
+          s.className = 'w'; s.textContent = wd;
+          el.appendChild(s); el.appendChild(document.createTextNode(' '));
+        });
+      } else if (n.nodeType === 1) {
+        n.classList.add('w'); el.appendChild(n); el.appendChild(document.createTextNode(' '));
+      }
+    });
+  })(head);
+  gsap.from('#statementHead .w', {
+    yPercent: 110, opacity: 0, duration: 0.7, ease: 'power3.out', stagger: 0.025,
+    scrollTrigger: { trigger: '.statement', start: 'top 72%' }
+  });
+  gsap.from('.statement [data-reveal]', {
+    y: 24, opacity: 0, duration: 0.8, ease: 'power3.out',
+    scrollTrigger: { trigger: '.statement', start: 'top 55%' }
+  });
+
+  // capability rows
+  gsap.utils.toArray('[data-cap]').forEach(function (row, i) {
+    gsap.from(row, {
+      y: 36, opacity: 0, duration: 0.7, ease: 'power3.out', delay: (i % 4) * 0.05,
+      scrollTrigger: { trigger: row, start: 'top 88%' }
+    });
+  });
+
+  // pinned horizontal eras (desktop only)
+  var mm = gsap.matchMedia();
+  mm.add('(min-width: 900px)', function () {
+    var track = document.getElementById('erasTrack');
+    var getX = function () { return -(track.scrollWidth - document.documentElement.clientWidth); };
+    var tween = gsap.to(track, {
+      x: getX, ease: 'none',
+      scrollTrigger: {
+        trigger: '#erasViewport',
+        start: 'top 12%',
+        end: function () { return '+=' + (track.scrollWidth - document.documentElement.clientWidth); },
+        pin: true,
+        scrub: 0.6,
+        invalidateOnRefresh: true
+      }
+    });
+    return function () { tween.scrollTrigger && tween.scrollTrigger.kill(); tween.kill(); gsap.set(track, { x: 0 }); };
+  });
+
+  // work cards
+  gsap.utils.toArray('.case').forEach(function (c, i) {
+    gsap.from(c, {
+      y: 48, opacity: 0, duration: 0.8, ease: 'power3.out', delay: (i % 2) * 0.08,
+      scrollTrigger: { trigger: c, start: 'top 90%' }
+    });
+  });
+
+  // studio + footer
+  gsap.from('.studio__grid > *', {
+    y: 36, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12,
+    scrollTrigger: { trigger: '.studio', start: 'top 75%' }
+  });
+  gsap.from('.footer__big', {
+    yPercent: 18, opacity: 0, duration: 1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.footer', start: 'top 78%' }
+  });
+})();
+</script>
+</body>
+</html>

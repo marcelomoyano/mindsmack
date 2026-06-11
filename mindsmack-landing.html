@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MindSmack — DevOps, QA & AI Orchestration since 1999</title>
+<meta name="description" content="A team that's been shipping software since 1999. DevOps, Quality Engineering, and AI-augmented development for products that have to work in production." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0B0E14;
+    --ink-2: #11161F;
+    --panel: #151B26;
+    --line: #243140;
+    --line-soft: #1B2430;
+    --fog: #8A97A8;
+    --fog-2: #5E6B7C;
+    --paper: #EDF1F6;
+    --paper-dim: #C5CEDA;
+    --signal: #4DE0C8;
+    --signal-dim: #2A8C7E;
+    --warn: #F2B24B;
+    --r: 14px;
+    --maxw: 1180px;
+    /* atmospheric horizon wash — borrowed discipline from xAI's footer glow, recolored to MindSmack signal-teal */
+    --horizon: linear-gradient(to top, rgba(77,224,200,0.10), rgba(77,224,200,0.03) 38%, transparent 70%);
+    /* hero light-source bloom — xAI's wordmark bloom, recolored teal and pushed to the right edge */
+    --bloom: radial-gradient(ellipse 60% 65% at 88% 26%, rgba(77,224,200,0.16), rgba(77,224,200,0.05) 42%, transparent 72%);
+    --display: 'Space Grotesk', system-ui, sans-serif;
+    --body: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--signal); color: var(--ink); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--signal);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .eyebrow::before { content: "["; color: var(--signal-dim); }
+  .eyebrow::after { content: "]"; color: var(--signal-dim); }
+
+  /* ===== SIGNAL LINE MOTIF ===== */
+  .sync {
+    position: relative;
+    height: 1px;
+    background: var(--line-soft);
+    overflow: visible;
+  }
+  .sync::after {
+    content: "";
+    position: absolute;
+    top: -1px; left: 0;
+    height: 3px; width: 90px;
+    background: linear-gradient(90deg, transparent, var(--signal), transparent);
+    animation: travel 7s linear infinite;
+    opacity: 0.8;
+  }
+  @keyframes travel {
+    0% { left: -10%; }
+    100% { left: 100%; }
+  }
+
+  /* hero hairline illustration — a single signal arc sweeping behind the type */
+  .hero-art {
+    position: absolute;
+    top: -40px; right: -60px;
+    width: 620px; height: 620px;
+    pointer-events: none;
+    opacity: 0.55;
+    mask-image: radial-gradient(circle at 60% 40%, #000 40%, transparent 72%);
+  }
+  @media (max-width: 900px) { .hero-art { opacity: 0.28; right: -180px; } }
+
+  /* ===== NAV ===== */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11,14,20,0.72);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .brand {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+    display: flex; align-items: center; gap: 11px;
+  }
+  .brand .dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 0 0 rgba(77,224,200,0.5);
+    animation: pulse 2.6s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(77,224,200,0.45); }
+    70% { box-shadow: 0 0 0 9px rgba(77,224,200,0); }
+    100% { box-shadow: 0 0 0 0 rgba(77,224,200,0); }
+  }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a {
+    font-size: 14.5px; color: var(--paper-dim);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--paper); }
+  .nav-cta {
+    font-family: var(--mono);
+    font-size: 13px;
+    border: 1px solid var(--line);
+    padding: 9px 16px;
+    border-radius: 8px;
+    color: var(--paper);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .nav-cta:hover { border-color: var(--signal); background: rgba(77,224,200,0.07); }
+  .nav-toggle { display: none; background: none; border: none; color: var(--paper); cursor: pointer; }
+
+  @media (max-width: 800px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: block; }
+  }
+
+  /* ===== HERO ===== */
+  .hero { position: relative; padding: 86px 0 70px; }
+  /* light-source bloom — sits below the grid and content, glows in from the right */
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: var(--bloom);
+    pointer-events: none;
+  }
+  /* organic sphere — WebGL canvas, right-weighted, behind the headline */
+  .hero-orb {
+    position: absolute; top: 50%; right: -60px;
+    transform: translateY(-50%);
+    width: min(640px, 50vw); aspect-ratio: 1;
+    z-index: 1; pointer-events: none;
+    /* melt the square canvas edges into the hero */
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 76%);
+    mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 76%);
+  }
+  .hero-orb canvas { width: 100%; height: 100%; display: block; }
+  @media (max-width: 860px) {
+    .hero-orb { right: -22%; width: 92vw; opacity: 0.34; }
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 60% at 70% 20%, #000 30%, transparent 75%);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 2; }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.038em;
+    margin: 26px 0 0;
+    max-width: 16ch;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--signal);
+  }
+  .hero-sub {
+    margin-top: 26px;
+    font-size: clamp(1.05rem, 1.6vw, 1.28rem);
+    color: var(--paper-dim);
+    max-width: 52ch;
+    line-height: 1.55;
+  }
+  .hero-cta { display: flex; gap: 14px; margin-top: 38px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 15.5px;
+    padding: 14px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.15s, background 0.2s, border-color 0.2s;
+    display: inline-flex; align-items: center; gap: 9px;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: var(--signal); color: var(--ink); }
+  .btn-primary:hover { background: #6BEAD5; }
+  .btn-ghost { border-color: var(--line); color: var(--paper); }
+  .btn-ghost:hover { border-color: var(--fog); }
+  .btn .arrow { transition: transform 0.2s; }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  .hero-meta {
+    margin-top: 54px;
+    display: flex; gap: 38px; flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--fog);
+  }
+  .hero-meta b { color: var(--paper); font-weight: 500; }
+
+  /* ===== MARQUEE / CAPABILITIES STRIP ===== */
+  .strip {
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    background: var(--ink-2);
+    overflow: hidden;
+    padding: 18px 0;
+  }
+  .marquee {
+    display: flex; gap: 48px; white-space: nowrap;
+    animation: slide 34s linear infinite;
+    font-family: var(--mono);
+    font-size: 13.5px;
+    color: var(--fog);
+    letter-spacing: 0.04em;
+  }
+  .marquee span { display: inline-flex; gap: 12px; align-items: center; }
+  .marquee span::before { content: "—"; color: var(--signal-dim); }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ===== SECTION SHELL ===== */
+  section { position: relative; }
+  .pad { padding: 96px 0; }
+  .sec-head { max-width: 60ch; margin-bottom: 56px; }
+  .sec-head h2 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(1.9rem, 3.4vw, 2.9rem);
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    margin-top: 18px;
+  }
+  .sec-head p { margin-top: 18px; color: var(--paper-dim); font-size: 1.1rem; }
+
+  /* ===== WEDGE: the two lead offers ===== */
+  .wedge { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 860px) { .wedge { grid-template-columns: 1fr; } }
+  .wedge-card {
+    background: var(--panel);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--r);
+    padding: 34px 32px 30px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .wedge-card:hover { border-color: var(--line); transform: translateY(-3px); }
+  .wedge-card .tag {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--signal);
+  }
+  .wedge-card h3 {
+    font-family: var(--display); font-weight: 600;
+    font-size: 1.7rem; letter-spacing: -0.015em; margin: 14px 0 14px;
+  }
+  .wedge-card p { color: var(--paper-dim); font-size: 1.02rem; }
+  .wedge-card ul { list-style: none; margin-top: 22px; display: grid; gap: 10px; }
+  .wedge-card li {
+    font-size: 14.5px; color: var(--fog);
+    padding-left: 22px; position: relative;
+  }
+  .wedge-card li::before {
+    content: ""; position: absolute; left: 0; top: 8px;
+    width: 7px; height: 7px; border: 1px solid var(--signal);
+    transform: rotate(45deg);
+  }
+  .wedge-card .num {
+    position: absolute; top: 26px; right: 30px;
+    font-family: var(--mono); font-size: 13px; color: var(--fog-2);
+  }
+
+  /* ===== CAPABILITIES GRID ===== */
+  .caps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); border-radius: var(--r); overflow: hidden; }
+  @media (max-width: 860px) { .caps { grid-template-columns: 1fr; } }
+  .cap {
+    background: var(--ink-2);
+    padding: 30px 28px;
+    transition: background 0.25s;
+  }
+  .cap:hover { background: var(--panel); }
+  .cap .ci { font-family: var(--mono); font-size: 12.5px; color: var(--signal-dim); }
+  .cap h4 { font-family: var(--display); font-weight: 600; font-size: 1.22rem; margin: 12px 0 10px; letter-spacing: -0.01em; }
+  .cap p { font-size: 14.5px; color: var(--fog); line-height: 1.55; }
+
+  /* ===== AI ORCHESTRATION BAND ===== */
+  .ai-band { background: var(--ink-2); border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+  .ai-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; }
+  @media (max-width: 860px) { .ai-grid { grid-template-columns: 1fr; gap: 36px; } }
+  .ai-copy h2 { font-family: var(--display); font-weight: 600; font-size: clamp(1.9rem, 3.4vw, 2.8rem); letter-spacing: -0.02em; line-height: 1.08; margin-top: 18px; }
+  .ai-copy p { color: var(--paper-dim); margin-top: 20px; font-size: 1.08rem; }
+  .ai-copy .pull { margin-top: 26px; font-family: var(--display); font-size: 1.15rem; color: var(--paper); border-left: 2px solid var(--signal); padding-left: 18px; }
+
+  /* orchestration diagram */
+  .orch { background: var(--ink); border: 1px solid var(--line-soft); border-radius: var(--r); padding: 28px; }
+  .orch-row { display: flex; align-items: center; gap: 14px; padding: 13px 0; font-family: var(--mono); font-size: 13px; }
+  .orch-row + .orch-row { border-top: 1px dashed var(--line-soft); }
+  .orch-node {
+    width: 10px; height: 10px; border-radius: 50%; background: var(--signal-dim); flex: none;
+    position: relative;
+  }
+  .orch-row.live .orch-node { background: var(--signal); box-shadow: 0 0 12px var(--signal); }
+  .orch-row .lbl { color: var(--paper-dim); flex: 1; }
+  .orch-row .st { color: var(--fog-2); font-size: 11.5px; }
+  .orch-row.live .st { color: var(--signal); }
+
+  /* ===== PROOF / TRACK RECORD ===== */
+  .proof { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  @media (max-width: 860px) { .proof { grid-template-columns: 1fr 1fr; gap: 16px; } }
+  .stat { border-left: 1px solid var(--line); padding-left: 18px; }
+  .stat .n { font-family: var(--display); font-weight: 600; font-size: clamp(2.2rem, 4vw, 3.2rem); letter-spacing: -0.03em; color: var(--paper); }
+  .stat .l { font-size: 13.5px; color: var(--fog); margin-top: 6px; line-height: 1.4; }
+  .proof-note { margin-top: 34px; font-size: 15px; color: var(--fog); max-width: 64ch; }
+  .proof-note b { color: var(--paper-dim); font-weight: 500; }
+
+  /* ===== PROCESS ===== */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; counter-reset: s; }
+  @media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
+  .step {
+    border-top: 2px solid var(--line); padding-top: 22px; position: relative;
+  }
+  .step .sn { font-family: var(--mono); font-size: 13px; color: var(--signal); }
+  .step h4 { font-family: var(--display); font-weight: 600; font-size: 1.3rem; margin: 12px 0 10px; letter-spacing: -0.01em; }
+  .step p { font-size: 15px; color: var(--fog); line-height: 1.55; }
+
+  /* ===== CTA / BOOKING ===== */
+  .cta-band { background: linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%); border-top: 1px solid var(--line-soft); }
+  .cta-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  @media (max-width: 860px) { .cta-inner { grid-template-columns: 1fr; gap: 40px; } }
+  .cta-inner h2 { font-family: var(--display); font-weight: 600; font-size: clamp(2rem, 4vw, 3.1rem); letter-spacing: -0.025em; line-height: 1.05; }
+  .cta-inner h2 em { font-style: normal; color: var(--signal); }
+  .cta-inner .lead { margin-top: 20px; color: var(--paper-dim); font-size: 1.1rem; max-width: 44ch; }
+  .cal-block { margin-top: 30px; }
+  .cal-block .btn-primary { font-size: 16px; padding: 16px 28px; }
+  .cal-sub { margin-top: 14px; font-family: var(--mono); font-size: 12.5px; color: var(--fog-2); }
+
+  /* form */
+  .form-card { background: var(--panel); border: 1px solid var(--line-soft); border-radius: var(--r); padding: 30px; }
+  .form-card .ft { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fog); margin-bottom: 6px; }
+  .form-card h3 { font-family: var(--display); font-weight: 600; font-size: 1.35rem; margin-bottom: 20px; letter-spacing: -0.01em; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 13px; color: var(--paper-dim); margin-bottom: 7px; }
+  .field input, .field textarea, .field select {
+    width: 100%; background: var(--ink); border: 1px solid var(--line);
+    border-radius: 9px; padding: 12px 14px; color: var(--paper);
+    font-family: var(--body); font-size: 15px; transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  /* focus = teal border + a soft ambient ring (xAI's one sanctioned glow, recolored) */
+  .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--signal); box-shadow: 0 0 0 3px rgba(77,224,200,0.15); }
+  .field textarea { resize: vertical; min-height: 92px; }
+  .form-card .btn-primary { width: 100%; justify-content: center; margin-top: 6px; }
+  .form-msg { margin-top: 14px; font-size: 14px; color: var(--signal); display: none; }
+  .form-msg.show { display: block; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    border-top: 1px solid var(--line-soft);
+    padding: 54px 0 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 320px;
+    background: var(--horizon);
+    pointer-events: none;
+    z-index: 0;
+  }
+  footer .wrap { position: relative; z-index: 1; }
+  .foot-top { display: flex; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
+  .foot-brand { max-width: 34ch; }
+  .foot-brand .brand { margin-bottom: 14px; }
+  .foot-brand p { color: var(--fog); font-size: 14.5px; }
+  .foot-cols { display: flex; gap: 64px; flex-wrap: wrap; }
+  .foot-col h5 { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fog-2); margin-bottom: 14px; }
+  .foot-col a { display: block; color: var(--paper-dim); font-size: 14.5px; padding: 5px 0; transition: color 0.2s; }
+  .foot-col a:hover { color: var(--signal); }
+  .foot-bottom { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line-soft); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 12px; color: var(--fog-2); }
+
+  /* reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="brand"><span class="dot"></span>MindSmack</a>
+      <div class="nav-links">
+        <a href="#offer">DevOps &amp; QA</a>
+        <a href="#caps">Capabilities</a>
+        <a href="#ai">AI Orchestration</a>
+        <a href="#track">Track record</a>
+        <a href="#start" class="nav-cta">Book a call</a>
+      </div>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').style.display = (getComputedStyle(document.querySelector('.nav-links')).display==='none'?'flex':'none')">☰</button>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="hero-grid"></div>
+  <svg class="hero-art" viewBox="0 0 620 620" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="310" cy="310" r="240" stroke="var(--line)" stroke-width="1"/>
+    <circle cx="310" cy="310" r="170" stroke="var(--line-soft)" stroke-width="1"/>
+    <circle cx="310" cy="310" r="100" stroke="var(--line-soft)" stroke-width="1"/>
+    <path id="heroLine" d="M70 470 Q 310 310 540 150" stroke="var(--signal)" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="540" cy="150" r="5" fill="var(--signal)"/>
+    <circle cx="540" cy="150" r="11" stroke="var(--signal)" stroke-width="1" opacity="0.5"/>
+    <circle cx="310" cy="310" r="3" fill="var(--signal-dim)"/>
+    <circle cx="170" cy="390" r="2.5" fill="var(--fog)"/>
+    <circle cx="430" cy="230" r="2.5" fill="var(--fog)"/>
+    <!-- signal pulses travelling up the line toward the node -->
+    <g class="traveller">
+      <circle r="7" fill="var(--signal)" opacity="0.18"/>
+      <circle r="2.6" fill="var(--signal)"/>
+      <animateMotion dur="5.5s" begin="0s" repeatCount="indefinite"><mpath href="#heroLine"/></animateMotion>
+      <animate attributeName="opacity" dur="5.5s" begin="0s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;0.12;0.85;1"/>
+    </g>
+    <g class="traveller">
+      <circle r="6" fill="var(--signal)" opacity="0.15"/>
+      <circle r="2.2" fill="var(--signal)"/>
+      <animateMotion dur="5.5s" begin="2.75s" repeatCount="indefinite"><mpath href="#heroLine"/></animateMotion>
+      <animate attributeName="opacity" dur="5.5s" begin="2.75s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;0.12;0.85;1"/>
+    </g>
+  </svg>
+  <div class="hero-orb" aria-hidden="true"><canvas id="orbCanvas"></canvas></div>
+  <div class="wrap hero-inner">
+    <span class="eyebrow reveal">Shipping software since 1999</span>
+    <h1 class="reveal">The hard parts, <em>handled.</em> DevOps, QA, and AI orchestration.</h1>
+    <p class="hero-sub reveal">We're the team behind products that are still running in production today. Now we're opening two doors: senior DevOps and Quality Engineering you can plug straight into your pipeline — backed by AI-augmented delivery, not improvised by it.</p>
+    <div class="hero-cta reveal">
+      <a href="#start" class="btn btn-primary">Book a call <span class="arrow">→</span></a>
+      <a href="#offer" class="btn btn-ghost">See what we run</a>
+    </div>
+    <div class="hero-meta reveal">
+      <span><b>20+</b> years building</span>
+      <span><b>Real-time</b> delivery &amp; review</span>
+      <span><b>Timezone-aligned</b> with US hours</span>
+      <span><b>Production-grade</b>, not prototypes</span>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="marquee" id="marq">
+    <span>AWS</span><span>Terraform</span><span>Kubernetes / EKS</span><span>Docker</span><span>CI/CD pipelines</span><span>Infrastructure as Code</span><span>Automated testing</span><span>Shift-left QA</span><span>React Native</span><span>Flutter</span><span>API architecture</span><span>Observability</span><span>DevSecOps</span><span>FinOps</span><span>Disaster recovery</span>
+    <span>AWS</span><span>Terraform</span><span>Kubernetes / EKS</span><span>Docker</span><span>CI/CD pipelines</span><span>Infrastructure as Code</span><span>Automated testing</span><span>Shift-left QA</span><span>React Native</span><span>Flutter</span><span>API architecture</span><span>Observability</span><span>DevSecOps</span><span>FinOps</span><span>Disaster recovery</span>
+  </div>
+</div>
+
+<!-- WEDGE -->
+<a id="offer"></a>
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Start here</span>
+      <h2>Two services, ready to plug in.</h2>
+      <p>Most teams don't need another full rebuild. They need the operational backbone done right — by people who've done it for two decades. That's where we start.</p>
+    </div>
+    <div class="wedge">
+      <div class="wedge-card reveal">
+        <span class="num">01</span>
+        <span class="tag">Cloud &amp; DevOps</span>
+        <h3>Ship faster, break less.</h3>
+        <p>We build the deployment machinery that lets your developers focus on product instead of plumbing. Automated pipelines, infrastructure as code, and the monitoring to know it's all healthy — before your users do.</p>
+        <ul>
+          <li>CI/CD pipeline design and automation</li>
+          <li>AWS architecture, IaC with Terraform &amp; CloudFormation</li>
+          <li>Kubernetes / EKS, Docker, serverless</li>
+          <li>Observability: CloudWatch, Grafana, dashboards</li>
+          <li>DevSecOps, access management, hardening</li>
+          <li>Disaster recovery, high availability, cost / FinOps</li>
+        </ul>
+      </div>
+      <div class="wedge-card reveal">
+        <span class="num">02</span>
+        <span class="tag">Quality Engineering</span>
+        <h3>Confidence in every release.</h3>
+        <p>Quality isn't a phase you bolt on at the end — it lives in the sprint. We embed with your team, catch defects early, and build the automated coverage that lets you release quickly without holding your breath.</p>
+        <ul>
+          <li>Shift-left QA inside your Agile process</li>
+          <li>Manual &amp; automated testing, framework build-out</li>
+          <li>Regression, smoke, exploratory, compatibility</li>
+          <li>Performance, API, mobile &amp; web validation</li>
+          <li>CI/CD-integrated continuous testing</li>
+          <li>Release verification &amp; defect reporting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="sync"></div></div>
+
+<!-- CAPABILITIES -->
+<a id="caps"></a>
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The full bench</span>
+      <h2>And when you need the whole thing built.</h2>
+      <p>DevOps and QA are the front door. Behind it is a full product team that designs, builds, and runs the entire stack — frontend to infrastructure, under one roof.</p>
+    </div>
+    <div class="caps">
+      <div class="cap reveal"><div class="ci">01 / Mobile</div><h4>Mobile applications</h4><p>iOS and Android products built native or cross-platform with React Native and Flutter — one codebase, consistent experience, lower maintenance.</p></div>
+      <div class="cap reveal"><div class="ci">02 / Web</div><h4>Web platforms</h4><p>Enterprise systems, SaaS products, customer and partner portals. Operational dashboards that turn business logic into something teams actually use.</p></div>
+      <div class="cap reveal"><div class="ci">03 / Backend</div><h4>Backend &amp; APIs</h4><p>API architecture, database design, system integrations. The connective tissue that keeps data moving and services talking.</p></div>
+      <div class="cap reveal"><div class="ci">04 / Cloud</div><h4>Cloud-native infrastructure</h4><p>AWS environments architected for reliability and scale — from traditional hosting to fully cloud-native, multi-region setups.</p></div>
+      <div class="cap reveal"><div class="ci">05 / Full-cycle</div><h4>Full-cycle ownership</h4><p>Concept to production under a single engagement. Frontend, backend, and infrastructure aligned from day one — fewer handoffs, less integration risk.</p></div>
+      <div class="cap reveal"><div class="ci">06 / Modernize</div><h4>Legacy modernization</h4><p>Aging systems brought up to current standards without a risky big-bang rewrite. We've kept old products alive and made them fast again.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- AI ORCHESTRATION -->
+<a id="ai"></a>
+<section class="ai-band pad">
+  <div class="wrap">
+    <div class="ai-grid">
+      <div class="ai-copy reveal">
+        <span class="eyebrow">The difference</span>
+        <h2>AI-augmented. Not AI-improvised.</h2>
+        <p>Everyone's bolting a chatbot onto their workflow and calling it transformation. We do something quieter and more useful: we orchestrate AI agents inside a delivery process that twenty years of shipping taught us to trust.</p>
+        <p>Agents handle the repeatable load — scaffolding, test generation, pipeline checks, code review passes — while senior engineers stay on the wheel for judgment, architecture, and the calls that actually matter. The result is real-time development that moves at machine speed with human accountability.</p>
+        <div class="pull">We know the hard stuff. The AI makes us faster at it — it doesn't make the decisions.</div>
+      </div>
+      <div class="orch reveal" aria-hidden="true">
+        <div class="orch-row live"><span class="orch-node"></span><span class="lbl">Orchestrator</span><span class="st">● live</span></div>
+        <div class="orch-row live"><span class="orch-node"></span><span class="lbl">Code-gen agent</span><span class="st">running</span></div>
+        <div class="orch-row"><span class="orch-node"></span><span class="lbl">Test-author agent</span><span class="st">queued</span></div>
+        <div class="orch-row live"><span class="orch-node"></span><span class="lbl">CI / pipeline check</span><span class="st">passing</span></div>
+        <div class="orch-row"><span class="orch-node"></span><span class="lbl">Review agent</span><span class="st">standby</span></div>
+        <div class="orch-row live"><span class="orch-node"></span><span class="lbl">Human engineer</span><span class="st">● in control</span></div>
+        <div class="orch-row live"><span class="orch-node"></span><span class="lbl">Deploy → production</span><span class="st">healthy</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACK RECORD -->
+<a id="track"></a>
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Track record</span>
+      <h2>The proof is in production.</h2>
+      <p>We can't name every client — a lot of what we've built lives under NDA or someone else's brand. What we can tell you is that it's still running.</p>
+    </div>
+    <div class="proof">
+      <div class="stat reveal"><div class="n">1999</div><div class="l">The year we started shipping</div></div>
+      <div class="stat reveal"><div class="n">20+</div><div class="l">Years of production software</div></div>
+      <div class="stat reveal"><div class="n">100%</div><div class="l">Senior team — no juniors learning on your project</div></div>
+      <div class="stat reveal"><div class="n">24/7</div><div class="l">Continuous delivery across aligned timezones</div></div>
+    </div>
+    <p class="proof-note reveal"><b>Why no logo wall?</b> Because the work we're proudest of is the work we built for other people to put their name on. White-label, under NDA, behind the scenes — products that have run for years without anyone knowing we were the team underneath. That's exactly the kind of partner we are. The track record is real; the discretion is the point.</p>
+  </div>
+</section>
+
+<div class="wrap"><div class="sync"></div></div>
+
+<!-- PROCESS -->
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">How it works</span>
+      <h2>A short path from call to running code.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <span class="sn">Step 01</span>
+        <h4>We map the gap</h4>
+        <p>A working call — not a sales pitch. You walk us through where things stand and where they hurt. We tell you, honestly, where we'd start and what it takes.</p>
+      </div>
+      <div class="step reveal">
+        <span class="sn">Step 02</span>
+        <h4>We embed and build</h4>
+        <p>A senior team plugs into your stack and your workflow. Real-time collaboration in your hours, with AI orchestration handling the repeatable load so velocity stays high.</p>
+      </div>
+      <div class="step reveal">
+        <span class="sn">Step 03</span>
+        <h4>We keep it running</h4>
+        <p>Pipelines, monitoring, and test coverage that outlive the engagement. You're left with infrastructure your own team can own — and us on call if you want us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA + FORM -->
+<a id="start"></a>
+<section class="cta-band pad">
+  <div class="wrap">
+    <div class="cta-inner">
+      <div class="reveal">
+        <span class="eyebrow">Let's talk</span>
+        <h2>Book a call and bring the <em>hard part.</em></h2>
+        <p class="lead">The fastest way in is a conversation. Grab a time and you'll be talking to someone who can actually scope the work — usually same week.</p>
+        <div class="cal-block">
+          <a href="https://cal.com/mindsmack/30min" target="_blank" rel="noopener" class="btn btn-primary">Book a 30-min call <span class="arrow">→</span></a>
+          <div class="cal-sub">// Opens cal.com · routed to a delivery lead · times in your timezone</div>
+        </div>
+      </div>
+
+      <div class="form-card reveal">
+        <div class="ft">Prefer to write first?</div>
+        <h3>Send a brief</h3>
+        <form id="briefForm" onsubmit="return false;">
+          <div class="field">
+            <label for="nm">Name</label>
+            <input id="nm" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="em">Work email</label>
+            <input id="em" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="need">What do you need?</label>
+            <select id="need" name="need">
+              <option>DevOps / Cloud infrastructure</option>
+              <option>Quality Engineering / QA</option>
+              <option>Full product build</option>
+              <option>AI orchestration / augmented development</option>
+              <option>Not sure yet — let's talk</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="msg">A few lines on the project</label>
+            <textarea id="msg" name="message" placeholder="Where it stands, where it hurts, any deadline."></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="submitBrief()">Send brief</button>
+          <div class="form-msg" id="formMsg">Thanks — your brief is ready to send. Wire this form to your inbox or cal.com webhook to receive it.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="#top" class="brand"><span class="dot"></span>MindSmack</a>
+        <p>An agency that's been building since 1999. DevOps, Quality Engineering, and AI-augmented development for products that have to work when it counts.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Services</h5>
+          <a href="#offer">DevOps &amp; Cloud</a>
+          <a href="#offer">Quality Engineering</a>
+          <a href="#caps">Product builds</a>
+          <a href="#ai">AI orchestration</a>
+        </div>
+        <div class="foot-col">
+          <h5>Company</h5>
+          <a href="#track">Track record</a>
+          <a href="#start">Book a call</a>
+          <a href="#start">Send a brief</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 1999–2026 MindSmack. Still shipping.</span>
+      <span>US-based · global delivery · timezone-aligned</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // reduced motion: SMIL isn't covered by the CSS guard, so drop the travelling pulses
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.traveller').forEach(el => el.remove());
+  }
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 4) * 60 + 'ms';
+    io.observe(el);
+  });
+
+  // form (front-end only stub)
+  function submitBrief() {
+    const f = document.getElementById('briefForm');
+    if (!f.checkValidity()) { f.reportValidity(); return; }
+    document.getElementById('formMsg').classList.add('show');
+  }
+</script>
+
+<!-- ===== ORGANIC SPHERE — our own Three.js build (none of brunosimon's code) =====
+     Tunables live in orb.js (CONFIG block at the top). Import map must stay inline. -->
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module" src="./orb.js"></script>
+</body>
+</html>

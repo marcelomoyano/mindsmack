@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>MindSmack — Creative Technology Studio · Est. 2006</title>
+<meta name="description" content="MindSmack is a creative technology studio with twenty years of taking products from idea to production. AI-augmented development, mobile and web applications, AWS cloud &amp; DevOps, quality engineering, and data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cobalt:#1D2DF0;
+  --cobalt-deep:#1422C4;
+  --ink:#0B0C10;
+  --bone:#F4F4EF;
+  --bone-dim:#E7E7DF;
+  --tint:#D9DEFF;
+  --mute:#5E6170;
+  --display:'Anton', Impact, sans-serif;
+  --body:'Hanken Grotesk', system-ui, sans-serif;
+  --mono:'Spline Sans Mono', ui-monospace, monospace;
+  --gutter:clamp(20px, 4vw, 64px);
+  --maxw:1680px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+}
+body{
+  font-family:var(--body);
+  background:var(--bone);
+  color:var(--ink);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--cobalt);color:var(--bone)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--cobalt);outline-offset:3px}
+.hero :focus-visible, .footer :focus-visible{outline-color:var(--bone)}
+
+/* ---------- NAV ---------- */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px var(--gutter);
+  color:var(--bone);
+  transition:color .35s ease;
+  pointer-events:none;
+}
+.nav > *{pointer-events:auto}
+.nav.is-dark{color:var(--ink)}
+.nav__brand{
+  font-family:var(--display);
+  font-size:clamp(18px,1.6vw,24px);
+  letter-spacing:.04em;
+  text-decoration:none;
+  text-transform:uppercase;
+}
+.nav__links{display:flex;gap:clamp(14px,2.4vw,36px);align-items:center;list-style:none}
+.nav__links a{
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;opacity:.85;transition:opacity .2s;
+}
+.nav__links a:hover{opacity:1}
+.nav__cta{
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;
+  border:1px solid currentColor;border-radius:999px;
+  padding:10px 18px;
+  transition:background .25s,color .25s;
+}
+.nav.is-dark .nav__cta:hover{background:var(--ink);color:var(--bone)}
+.nav:not(.is-dark) .nav__cta:hover{background:var(--bone);color:var(--cobalt)}
+@media (max-width:720px){
+  .nav__links li:not(:last-child){display:none}
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  height:100vh;
+  height:100svh;min-height:560px;
+  background:var(--cobalt);
+  color:var(--bone);
+  overflow:hidden;
+}
+.hero__canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
+.hero__fallback{
+  position:absolute;inset:0;display:none;
+  align-items:center;justify-content:center;
+  font-family:var(--display);
+  font-size:14.5vw;letter-spacing:.01em;color:var(--bone);
+  text-transform:uppercase;user-select:none;
+}
+.hero.no-gl .hero__fallback{display:flex}
+.hero.no-gl .hero__canvas{display:none}
+.hero__deck{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+  padding:0 var(--gutter) clamp(22px,4vh,44px);
+  pointer-events:none;
+}
+.hero__deck a{pointer-events:auto}
+.hero__tag{max-width:34ch;font-size:clamp(15px,1.25vw,19px);line-height:1.45;font-weight:500}
+.hero__tag strong{font-weight:700}
+.hero__meta{
+  text-align:right;font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;opacity:.85;line-height:2;
+}
+.hero__hint{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  z-index:2;pointer-events:none;
+  font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  opacity:0;
+}
+@media (max-width:720px){
+  .hero__deck{flex-direction:column;align-items:flex-start}
+  .hero__meta{text-align:left}
+}
+
+/* ---------- SECTION SHELL ---------- */
+.section{padding:clamp(88px,12vw,180px) var(--gutter)}
+.shell{max-width:var(--maxw);margin:0 auto}
+.eyebrow{
+  font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--cobalt);display:flex;align-items:center;gap:14px;margin-bottom:clamp(28px,4vw,56px);
+}
+.eyebrow::after{content:"";height:1px;flex:1;background:currentColor;opacity:.35}
+
+/* ---------- STATEMENT ---------- */
+.statement h2{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(34px,5.4vw,92px);
+  line-height:1.04;letter-spacing:.005em;text-transform:uppercase;
+  max-width:18em;
+}
+.statement .w{display:inline-block;will-change:transform,opacity}
+.statement h2 em{font-style:normal;color:var(--cobalt)}
+.statement p{
+  margin-top:clamp(28px,3vw,44px);
+  max-width:46ch;font-size:clamp(16px,1.35vw,21px);color:var(--mute);font-weight:500;
+}
+
+/* ---------- CAPABILITIES ---------- */
+.caps{background:var(--ink);color:var(--bone)}
+.caps .eyebrow{color:var(--tint)}
+.cap{
+  position:relative;display:grid;
+  grid-template-columns:minmax(120px,.28fr) 1fr minmax(0,.9fr);
+  gap:clamp(16px,3vw,48px);align-items:baseline;
+  padding:clamp(26px,3.4vw,46px) 0;
+  border-top:1px solid rgba(244,244,239,.18);
+  overflow:hidden;
+}
+.cap:last-of-type{border-bottom:1px solid rgba(244,244,239,.18)}
+.cap__fill{
+  position:absolute;inset:0;background:var(--cobalt);
+  transform:scaleY(0);transform-origin:bottom;transition:transform .45s cubic-bezier(.65,0,.35,1);
+  z-index:0;
+}
+.cap:hover .cap__fill,.cap:focus-within .cap__fill{transform:scaleY(1)}
+.cap > *:not(.cap__fill){position:relative;z-index:1}
+.cap__tag{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:.7}
+.cap__name{
+  font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(30px,4.6vw,76px);line-height:1;letter-spacing:.01em;
+}
+.cap__desc{max-width:46ch}
+.cap__desc p{font-size:clamp(15px,1.2vw,18px);color:var(--bone-dim);font-weight:500}
+.cap__stack{display:block;margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.55}
+@media (max-width:860px){
+  .cap{grid-template-columns:1fr;gap:10px;align-items:start}
+  .cap__desc{max-width:none}
+}
+
+/* ---------- ERAS (horizontal timeline) ---------- */
+.eras{background:var(--bone);overflow:hidden;padding-left:0;padding-right:0}
+.eras__head{padding:0 var(--gutter)}
+.eras__viewport{position:relative}
+.eras__track{
+  display:flex;gap:clamp(20px,2.5vw,40px);
+  padding:0 var(--gutter);
+  width:max-content;
+  will-change:transform;
+}
+.era{
+  width:clamp(300px,34vw,520px);flex:none;
+  border:1px solid var(--ink);
+  background:var(--bone);
+  padding:clamp(22px,2.4vw,36px);
+  display:flex;flex-direction:column;gap:clamp(40px,6vw,110px);
+  transition:background .3s,color .3s;
+}
+.era:hover{background:var(--cobalt);color:var(--bone);border-color:var(--cobalt)}
+.era:hover .era__year{color:var(--bone)}
+.era:hover .era__label{color:var(--tint)}
+.era__year{
+  font-family:var(--display);font-weight:400;color:var(--cobalt);
+  font-size:clamp(56px,7vw,120px);line-height:.95;letter-spacing:.01em;
+}
+.era__label{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.era__body h3{font-size:clamp(20px,1.8vw,28px);line-height:1.2;font-weight:700;margin:6px 0 10px}
+.era__body p{font-size:clamp(14px,1.1vw,17px);color:var(--mute);font-weight:500}
+.era:hover .era__body p{color:var(--bone-dim)}
+@media (max-width:899px){
+  .eras{padding-left:var(--gutter);padding-right:var(--gutter)}
+  .eras__head{padding:0}
+  .eras__track{flex-direction:column;width:auto;padding:0}
+  .era{width:100%}
+}
+
+/* ---------- WORK ---------- */
+.work__grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:clamp(20px,3vw,48px);
+}
+.case{display:block;text-decoration:none;color:inherit}
+.case__cover{
+  aspect-ratio:4/3;border:1px solid var(--ink);
+  position:relative;overflow:hidden;background:var(--tint);
+}
+.case__cover canvas{position:absolute;inset:0;width:100%;height:100%}
+.case__cover::after{
+  content:"VIEW CASE →";
+  position:absolute;right:14px;bottom:12px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+  background:var(--ink);color:var(--bone);padding:8px 12px;
+  opacity:0;transform:translateY(6px);transition:.3s;
+}
+.case:hover .case__cover::after,.case:focus-visible .case__cover::after{opacity:1;transform:translateY(0)}
+.case__meta{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:14px}
+.case__meta h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(20px,2vw,32px);letter-spacing:.015em}
+.case__meta span{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);text-align:right}
+@media (max-width:780px){.work__grid{grid-template-columns:1fr}}
+
+/* ---------- STUDIO ---------- */
+.studio{background:var(--tint)}
+.studio__grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(32px,5vw,96px)}
+.studio h2{
+  font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(30px,4.2vw,68px);line-height:1.05;
+}
+.studio__facts{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--ink)}
+.fact{display:flex;justify-content:space-between;gap:20px;padding:18px 0;border-bottom:1px solid var(--ink)}
+.fact dt{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--cobalt)}
+.fact dd{font-weight:700;text-align:right}
+.studio p{margin-top:24px;max-width:48ch;font-size:clamp(15px,1.25vw,19px);color:#3A3D4D;font-weight:500}
+@media (max-width:860px){.studio__grid{grid-template-columns:1fr}}
+
+/* ---------- FOOTER ---------- */
+.footer{
+  background:var(--cobalt);color:var(--bone);
+  padding:clamp(96px,14vw,200px) var(--gutter) 36px;
+  position:relative;overflow:hidden;
+}
+.footer__big{
+  display:block;text-decoration:none;
+  font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(44px,9.4vw,168px);line-height:.98;letter-spacing:.005em;
+  max-width:9em;
+}
+.footer__big em{font-style:normal;-webkit-text-stroke:2px var(--bone);color:transparent;transition:color .3s}
+.footer__big:hover em{color:var(--bone)}
+.footer__row{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;
+  margin-top:clamp(56px,8vw,120px);
+  font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+}
+.footer__row a{text-decoration:none;opacity:.9}
+.footer__row a:hover{opacity:1;text-decoration:underline}
+.footer__row ul{list-style:none;display:flex;gap:24px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<a class="sr-only" href="#main">Skip to content</a>
+
+<nav class="nav" id="nav" aria-label="Main">
+  <a class="nav__brand" href="#top">MindSmack<span aria-hidden="true">®</span></a>
+  <ul class="nav__links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#capabilities">Capabilities</a></li>
+    <li><a href="#studio">Studio</a></li>
+    <li><a class="nav__cta" href="mailto:hello@mindsmack.com">Start a project</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="top">
+  <h1 class="sr-only">MindSmack — creative technology studio, est. 2006</h1>
+  <canvas class="hero__canvas" id="smack" aria-hidden="true"></canvas>
+  <div class="hero__fallback" aria-hidden="true">MindSmack</div>
+  <p class="hero__hint" id="heroHint">Go ahead — smack it</p>
+  <div class="hero__deck">
+    <p class="hero__tag" data-reveal><strong>The creative technology studio</strong> that takes products from idea to production — design, engineering, cloud, and AI under one roof.</p>
+    <p class="hero__meta" data-reveal>Est. 2006 — New Jersey / NYC<br>Design · Engineering · Cloud · AI</p>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- STATEMENT -->
+  <section class="section statement">
+    <div class="shell">
+      <p class="eyebrow">What we do</p>
+      <h2 id="statementHead">For twenty years, ideas have walked in here and walked out as production software. We design it, we engineer it, and we run it — <em>end to end.</em></h2>
+      <p data-reveal>Strategy, design, engineering, cloud, and quality under a single engagement. No hand-offs into the void, no integration roulette — one team owns the full lifecycle, from the first sketch to the release pipeline, and stays for the long run.</p>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section class="section caps" id="capabilities">
+    <div class="shell">
+      <p class="eyebrow">Capabilities</p>
+
+      <div class="cap" data-cap>
+        <div class="cap__fill" aria-hidden="true"></div>
+        <span class="cap__tag">AI</span>
+        <h3 class="cap__name">Augmented Development</h3>
+        <div class="cap__desc">
+          <p>Software built with AI in the loop — accelerating every phase of delivery without surrendering engineering judgment.</p>
+          <span class="cap__stack">Augmented SDLC · Tooling · Velocity</span>
+        </div>
+      </div>
+
+      <div class="cap" data-cap>
+        <div class="cap__fill" aria-hidden="true"></div>
+        <span class="cap__tag">Mobile</span>
+        <h3 class="cap__name">iOS &amp; Android</h3>
+        <div class="cap__desc">
+          <p>Native-quality apps from a unified codebase, shipped full-cycle — concept, design, backend, store, and beyond.</p>
+          <span class="cap__stack">React Native · Flutter · Swift</span>
+        </div>
+      </div>
+
+      <div class="cap" data-cap>
+        <div class="cap__fill" aria-hidden="true"></div>
+        <span class="cap__tag">Web</span>
+        <h3 class="cap__name">Platforms &amp; SaaS</h3>
+        <div class="cap__desc">
+          <p>Enterprise platforms, customer portals, and SaaS products that centralize workflows and scale with the business.</p>
+          <span class="cap__stack">Frontend · Backend · APIs · Integrations</span>
+        </div>
+      </div>
+
+      <div class="cap" data-cap>
+        <div class="cap__fill" aria-hidden="true"></div>
+        <span class="cap__tag">Cloud</span>
+        <h3 class="cap__name">AWS &amp; DevOps</h3>
+        <div class="cap__desc">
+          <p>Cloud-native architecture, infrastructure as code, and CI/CD pipelines that release faster, safer, on repeat.</p>
+          <span class="cap__stack">Terraform · Kubernetes · Serverless · CI/CD</span>
+        </div>
+      </div>
+
+      <div class="cap" data-cap>
+        <div class="cap__fill" aria-hidden="true"></div>
+        <span class="cap__tag">Quality</span>
+        <h3 class="cap__name">Engineering &amp; QA</h3>
+        <div class="cap__desc">
+          <p>Quality shifted left: manual and automated testing wired into every sprint, so every release ships with confidence.</p>
+          <span class="cap__stack">Automation · Regression · Performance · API</span>
+        </div>
+      </div>
+
+      <div class="cap" data-cap>
+        <div class="cap__fill" aria-hidden="true"></div>
+        <span class="cap__tag">Data</span>
+        <h3 class="cap__name">Mining &amp; Insight</h3>
+        <div class="cap__desc">
+          <p>Operational data turned into decisions — pipelines, models, and dashboards that make performance visible.</p>
+          <span class="cap__stack">Pipelines · Modeling · Dashboards</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ERAS -->
+  <section class="section eras" aria-label="Twenty years of firsts">
+    <div class="shell eras__head">
+      <p class="eyebrow">2006 → 2026 · Twenty years of firsts</p>
+    </div>
+    <div class="eras__viewport" id="erasViewport">
+      <div class="eras__track" id="erasTrack">
+
+        <article class="era">
+          <div>
+            <p class="era__year">2006</p>
+            <p class="era__label">The rich web</p>
+          </div>
+          <div class="era__body">
+            <h3>We open the studio.</h3>
+            <p>Flash-era microsites and campaign work for brands that wanted more than a page — craft first, even when the tools fought back.</p>
+          </div>
+        </article>
+
+        <article class="era">
+          <div>
+            <p class="era__year">2010</p>
+            <p class="era__label">The app decade</p>
+          </div>
+          <div class="era__body">
+            <h3>The iPhone changes the brief.</h3>
+            <p>We ship native from day one — interfaces designed for thumbs, engineered for hardware that fits in a pocket.</p>
+          </div>
+        </article>
+
+        <article class="era">
+          <div>
+            <p class="era__year">2015</p>
+            <p class="era__label">Everything responsive</p>
+          </div>
+          <div class="era__body">
+            <h3>One design, every screen.</h3>
+            <p>Design systems, video-first web, the death of "desktop only." We rebuild our practice around fluid everything.</p>
+          </div>
+        </article>
+
+        <article class="era">
+          <div>
+            <p class="era__year">2019</p>
+            <p class="era__label">Cloud-native</p>
+          </div>
+          <div class="era__body">
+            <h3>The infrastructure becomes code.</h3>
+            <p>Terraform, containers, serverless. We rebuild delivery around automation, and releases stop being events.</p>
+          </div>
+        </article>
+
+        <article class="era">
+          <div>
+            <p class="era__year">2022</p>
+            <p class="era__label">Continuous everything</p>
+          </div>
+          <div class="era__body">
+            <h3>Quality moves into the sprint.</h3>
+            <p>Shift-left QA, CI/CD on every project, deployment verification by default. Shipping daily becomes the baseline.</p>
+          </div>
+        </article>
+
+        <article class="era">
+          <div>
+            <p class="era__year">2026</p>
+            <p class="era__label">AI-augmented</p>
+          </div>
+          <div class="era__body">
+            <h3>Software, built with AI in the loop.</h3>
+            <p>AI-augmented development changes the economics of the craft. The next twenty years start here.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="section work" id="work">
+    <div class="shell">
+      <p class="eyebrow">Selected work</p>
+      <div class="work__grid">
+
+        <a class="case" href="#contact" data-cover="waves">
+          <div class="case__cover"><canvas aria-hidden="true"></canvas></div>
+          <div class="case__meta">
+            <h3>Field Ops, Connected</h3>
+            <span>Enterprise Mobile<br>React Native</span>
+          </div>
+        </a>
+
+        <a class="case" href="#contact" data-cover="grid">
+          <div class="case__cover"><canvas aria-hidden="true"></canvas></div>
+          <div class="case__meta">
+            <h3>The Single Pane</h3>
+            <span>Operations Platform<br>SaaS</span>
+          </div>
+        </a>
+
+        <a class="case" href="#contact" data-cover="orbit">
+          <div class="case__cover"><canvas aria-hidden="true"></canvas></div>
+          <div class="case__meta">
+            <h3>Zero Downtime, By Design</h3>
+            <span>Cloud Migration<br>AWS · DevOps</span>
+          </div>
+        </a>
+
+        <a class="case" href="#contact" data-cover="pulse">
+          <div class="case__cover"><canvas aria-hidden="true"></canvas></div>
+          <div class="case__meta">
+            <h3>Ship Every Day</h3>
+            <span>Quality Engineering<br>CI/CD</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STUDIO -->
+  <section class="section studio" id="studio">
+    <div class="shell studio__grid">
+      <div>
+        <p class="eyebrow">The studio</p>
+        <h2>Small by design. Senior by default.</h2>
+        <p>No account layers, no hand-offs into the void. The people you meet on day one are the people who design and build the work — partners who have been doing this together for two decades.</p>
+      </div>
+      <dl class="studio__facts">
+        <div class="fact"><dt>Founded</dt><dd>2006</dd></div>
+        <div class="fact"><dt>Years shipping</dt><dd>20</dd></div>
+        <div class="fact"><dt>Base</dt><dd>New Jersey / NYC</dd></div>
+        <div class="fact"><dt>Model</dt><dd>Full-cycle, founder-led</dd></div>
+        <div class="fact"><dt>Disciplines</dt><dd>Design × Engineering × AI</dd></div>
+      </dl>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER / CTA -->
+<footer class="footer" id="contact">
+  <a class="footer__big" href="mailto:hello@mindsmack.com">Have an <em>impossible</em> brief? Smack us.</a>
+  <div class="footer__row">
+    <a href="mailto:hello@mindsmack.com">hello@mindsmack.com</a>
+    <ul>
+      <li><a href="#" rel="noopener">LinkedIn</a></li>
+      <li><a href="#" rel="noopener">Instagram</a></li>
+      <li><a href="#" rel="noopener">X</a></li>
+    </ul>
+    <span>© 2006–2026 MindSmack Inc.</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ============================================================
+     SMACK HERO — pointer-driven wave simulation refracting the
+     MINDSMACK wordmark. Ping-pong FBO wave equation in Three.js.
+     ============================================================ */
+  var hero = document.querySelector('.hero');
+  var canvas = document.getElementById('smack');
+  var SIM = 512; // simulation resolution (square)
+
+  function initSmack() {
+    var renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: false });
+    } catch (e) { hero.classList.add('no-gl'); return; }
+    if (!renderer || !renderer.getContext()) { hero.classList.add('no-gl'); return; }
+
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    var geo = new THREE.PlaneBufferGeometry(2, 2);
+
+    // --- render targets (ping-pong) ---
+    function makeRT() {
+      return new THREE.WebGLRenderTarget(SIM, SIM, {
+        minFilter: THREE.LinearFilter,
+        magFilter: THREE.LinearFilter,
+        format: THREE.RGBAFormat,
+        type: THREE.HalfFloatType,
+        depthBuffer: false,
+        stencilBuffer: false
+      });
+    }
+    var rtA = makeRT(), rtB = makeRT();
+
+    // verify the GPU can actually render to a half-float target
+    renderer.setRenderTarget(rtA);
+    renderer.clear();
+    var glctx = renderer.getContext();
+    if (glctx.checkFramebufferStatus(glctx.FRAMEBUFFER) !== glctx.FRAMEBUFFER_COMPLETE) {
+      renderer.setRenderTarget(null);
+      renderer.dispose();
+      hero.classList.add('no-gl');
+      return;
+    }
+    renderer.setRenderTarget(null);
+
+    // --- wordmark texture (offscreen 2D canvas) ---
+    var textCanvas = document.createElement('canvas');
+    var textTexture = new THREE.CanvasTexture(textCanvas);
+    textTexture.minFilter = THREE.LinearFilter;
+
+    function drawWordmark() {
+      var w = hero.clientWidth, h = hero.clientHeight;
+      var scale = Math.min(2048 / w, 2);
+      textCanvas.width = Math.round(w * scale);
+      textCanvas.height = Math.round(h * scale);
+      var ctx = textCanvas.getContext('2d');
+      ctx.clearRect(0, 0, textCanvas.width, textCanvas.height);
+      ctx.fillStyle = '#F4F4EF';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      var word = 'MINDSMACK';
+      // size to ~94% of width
+      var size = 100;
+      ctx.font = size + 'px Anton, sans-serif';
+      var measured = ctx.measureText(word).width;
+      size = size * (textCanvas.width * 0.94) / measured;
+      size = Math.min(size, textCanvas.height * 0.82);
+      ctx.font = size + 'px Anton, sans-serif';
+      ctx.fillText(word, textCanvas.width / 2, textCanvas.height / 2 + size * 0.04);
+      textTexture.needsUpdate = true;
+    }
+
+    // --- simulation material ---
+    var simMat = new THREE.ShaderMaterial({
+      uniforms: {
+        uPrev:    { value: null },
+        uTexel:   { value: new THREE.Vector2(1 / SIM, 1 / SIM) },
+        uPointer: { value: new THREE.Vector2(-10, -10) },
+        uStrength:{ value: 0 },
+        uRadius:  { value: 0.012 },
+        uAspect:  { value: 1 },
+        uDamping: { value: 0.986 }
+      },
+      vertexShader:
+        'varying vec2 vUv;' +
+        'void main(){ vUv = uv; gl_Position = vec4(position, 1.0); }',
+      fragmentShader:
+        'precision highp float;' +
+        'varying vec2 vUv;' +
+        'uniform sampler2D uPrev;' +
+        'uniform vec2 uTexel; uniform vec2 uPointer;' +
+        'uniform float uStrength; uniform float uRadius; uniform float uAspect; uniform float uDamping;' +
+        'void main(){' +
+        '  vec4 c = texture2D(uPrev, vUv);' +
+        '  float l = texture2D(uPrev, vUv - vec2(uTexel.x, 0.0)).r;' +
+        '  float r = texture2D(uPrev, vUv + vec2(uTexel.x, 0.0)).r;' +
+        '  float t = texture2D(uPrev, vUv + vec2(0.0, uTexel.y)).r;' +
+        '  float b = texture2D(uPrev, vUv - vec2(0.0, uTexel.y)).r;' +
+        '  float nh = (l + r + t + b) * 0.5 - c.g;' +
+        '  nh *= uDamping;' +
+        '  vec2 d = vUv - uPointer; d.x *= uAspect;' +
+        '  nh += uStrength * exp(-dot(d, d) / (uRadius * uRadius));' +
+        '  gl_FragColor = vec4(nh, c.r, 0.0, 1.0);' +
+        '}'
+    });
+
+    // --- composite material ---
+    var outMat = new THREE.ShaderMaterial({
+      uniforms: {
+        uHeight: { value: null },
+        uText:   { value: textTexture },
+        uTexel:  { value: new THREE.Vector2(1 / SIM, 1 / SIM) },
+        uBg:     { value: new THREE.Color('#1D2DF0') },
+        uBgDeep: { value: new THREE.Color('#1422C4') },
+        uFg:     { value: new THREE.Color('#F4F4EF') }
+      },
+      vertexShader:
+        'varying vec2 vUv;' +
+        'void main(){ vUv = uv; gl_Position = vec4(position, 1.0); }',
+      fragmentShader:
+        'precision highp float;' +
+        'varying vec2 vUv;' +
+        'uniform sampler2D uHeight; uniform sampler2D uText;' +
+        'uniform vec2 uTexel;' +
+        'uniform vec3 uBg; uniform vec3 uBgDeep; uniform vec3 uFg;' +
+        'void main(){' +
+        '  float hl = texture2D(uHeight, vUv - vec2(uTexel.x, 0.0)).r;' +
+        '  float hr = texture2D(uHeight, vUv + vec2(uTexel.x, 0.0)).r;' +
+        '  float ht = texture2D(uHeight, vUv + vec2(0.0, uTexel.y)).r;' +
+        '  float hb = texture2D(uHeight, vUv - vec2(0.0, uTexel.y)).r;' +
+        '  vec2 grad = vec2(hr - hl, ht - hb);' +
+        '  vec2 ruv = vUv + grad * 0.35;' +
+        '  float a = texture2D(uText, ruv).a;' +
+        '  vec3 base = mix(uBgDeep, uBg, clamp(vUv.y + texture2D(uHeight, vUv).r * 2.0, 0.0, 1.0));' +
+        '  vec3 col = mix(base, uFg, a);' +
+        '  vec3 n = normalize(vec3(-grad.x, -grad.y, 0.08));' +
+        '  float spec = pow(max(dot(n, normalize(vec3(0.3, 0.5, 0.8))), 0.0), 24.0);' +
+        '  col += spec * 0.55;' +
+        '  gl_FragColor = vec4(col, 1.0);' +
+        '}'
+    });
+
+    var mesh = new THREE.Mesh(geo, simMat);
+    scene.add(mesh);
+
+    function resize() {
+      var w = hero.clientWidth, h = hero.clientHeight;
+      renderer.setSize(w, h, false);
+      simMat.uniforms.uAspect.value = w / h;
+      drawWordmark();
+    }
+
+    // --- pointer ---
+    var pointer = { x: -10, y: -10, px: -10, py: -10, active: false, last: 0 };
+    function toUv(e) {
+      var rect = canvas.getBoundingClientRect();
+      var cx = (e.touches ? e.touches[0].clientX : e.clientX);
+      var cy = (e.touches ? e.touches[0].clientY : e.clientY);
+      return { x: (cx - rect.left) / rect.width, y: 1 - (cy - rect.top) / rect.height };
+    }
+    var queued = []; // {x, y, s, r}
+    function smackAt(x, y, s, r) { queued.push({ x: x, y: y, s: s, r: r || 0.014 }); }
+
+    canvas.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'touch') return; // touchmove handles touch
+      var p = toUv(e);
+      var dx = p.x - pointer.px, dy = p.y - pointer.py;
+      var v = Math.min(Math.sqrt(dx * dx + dy * dy) * 14, 1);
+      if (pointer.active) smackAt(p.x, p.y, 0.12 + v * 0.5, 0.010);
+      pointer.px = p.x; pointer.py = p.y;
+      pointer.active = true; pointer.last = performance.now();
+    });
+    canvas.addEventListener('pointerdown', function (e) {
+      var p = toUv(e);
+      smackAt(p.x, p.y, 2.2, 0.02);
+      pointer.px = p.x; pointer.py = p.y;
+      pointer.active = true; pointer.last = performance.now();
+      hintOff();
+    });
+    canvas.addEventListener('pointerleave', function () { pointer.active = false; });
+
+    // touch: let vertical scroll pass (touch-action:pan-y) but ripple on the move
+    canvas.addEventListener('touchmove', function (e) {
+      var p = toUv(e);
+      smackAt(p.x, p.y, 0.35, 0.012);
+    }, { passive: true });
+
+    // idle drops keep it alive
+    var idleTimer = setInterval(function () {
+      if (performance.now() - pointer.last > 2600) {
+        smackAt(0.15 + Math.random() * 0.7, 0.25 + Math.random() * 0.5, 0.9, 0.012);
+      }
+    }, 2400);
+
+    // page-load: three orchestrated smacks across the wordmark
+    [[0.22, 0.5, 600], [0.5, 0.5, 850], [0.78, 0.5, 1100]].forEach(function (s) {
+      setTimeout(function () { smackAt(s[0], s[1], 2.4, 0.02); }, s[2]);
+    });
+
+    // hint pulse
+    var hint = document.getElementById('heroHint');
+    var hintShown = false;
+    function hintOff() { if (hintShown && window.gsap) gsap.to(hint, { opacity: 0, duration: .4 }); }
+    setTimeout(function () {
+      if (window.gsap) { hintShown = true; gsap.to(hint, { opacity: .7, duration: .8 }); setTimeout(hintOff, 4200); }
+    }, 1600);
+
+    // --- loop ---
+    var frame = 0;
+    function step() {
+      // apply at most one queued smack per frame
+      var q = queued.shift();
+      simMat.uniforms.uPointer.value.set(q ? q.x : -10, q ? q.y : -10);
+      simMat.uniforms.uStrength.value = q ? q.s : 0;
+      simMat.uniforms.uRadius.value = q ? q.r : 0.012;
+
+      mesh.material = simMat;
+      simMat.uniforms.uPrev.value = rtA.texture;
+      renderer.setRenderTarget(rtB);
+      renderer.render(scene, camera);
+
+      mesh.material = outMat;
+      outMat.uniforms.uHeight.value = rtB.texture;
+      renderer.setRenderTarget(null);
+      renderer.render(scene, camera);
+
+      var tmp = rtA; rtA = rtB; rtB = tmp;
+      frame++;
+      requestAnimationFrame(step);
+    }
+
+    function renderStatic() {
+      mesh.material = outMat;
+      outMat.uniforms.uHeight.value = rtA.texture;
+      renderer.setRenderTarget(null);
+      renderer.render(scene, camera);
+    }
+
+    window.addEventListener('resize', function () { resize(); if (prefersReduced) renderStatic(); });
+
+    // wait for the display font before drawing the wordmark
+    var start = function () {
+      resize();
+      if (prefersReduced) { clearInterval(idleTimer); renderStatic(); }
+      else requestAnimationFrame(step);
+    };
+    if (document.fonts && document.fonts.load) {
+      document.fonts.load('100px Anton').then(start, start);
+    } else { start(); }
+  }
+
+  try { initSmack(); } catch (e) { hero.classList.add('no-gl'); }
+
+  /* ============================================================
+     CASE COVERS — lightweight generative 2D canvas thumbnails
+     ============================================================ */
+  function paintCover(cv, kind) {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = cv.clientWidth * dpr, h = cv.clientHeight * dpr;
+    if (!w || !h) return;
+    cv.width = w; cv.height = h;
+    var ctx = cv.getContext('2d');
+    ctx.fillStyle = '#D9DEFF'; ctx.fillRect(0, 0, w, h);
+    ctx.strokeStyle = '#1D2DF0'; ctx.fillStyle = '#1D2DF0';
+    ctx.lineWidth = Math.max(1.5, w / 400);
+    var i, j;
+    if (kind === 'waves') {
+      for (i = 0; i < 14; i++) {
+        ctx.beginPath();
+        for (j = 0; j <= 60; j++) {
+          var x = (j / 60) * w;
+          var y = h * (0.18 + i * 0.05) + Math.sin(j * 0.35 + i * 0.8) * h * 0.03 * (1 + i * 0.12);
+          j ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+        }
+        ctx.stroke();
+      }
+    } else if (kind === 'grid') {
+      var cell = w / 10;
+      for (i = 0; i < 10; i++) for (j = 0; j < Math.ceil(h / cell); j++) {
+        if ((i * 7 + j * 13) % 5 === 0) ctx.fillRect(i * cell, j * cell, cell, cell);
+        else ctx.strokeRect(i * cell, j * cell, cell, cell);
+      }
+    } else if (kind === 'orbit') {
+      var cx = w / 2, cy = h / 2;
+      for (i = 1; i <= 7; i++) {
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, (w * 0.06) * i, (w * 0.025) * i, -0.5, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.beginPath(); ctx.arc(cx, cy, w * 0.035, 0, Math.PI * 2); ctx.fill();
+    } else { // pulse
+      var n = 24;
+      for (i = 0; i < n; i++) {
+        var bx = (i + 0.5) * (w / n);
+        var bh = h * (0.18 + 0.62 * Math.abs(Math.sin(i * 0.55)));
+        ctx.fillRect(bx - w / n * 0.32, h - bh, w / n * 0.64, bh);
+      }
+    }
+  }
+  function paintAllCovers() {
+    document.querySelectorAll('.case').forEach(function (c) {
+      paintCover(c.querySelector('canvas'), c.getAttribute('data-cover'));
+    });
+  }
+  paintAllCovers();
+  var coverRz; window.addEventListener('resize', function () {
+    clearTimeout(coverRz); coverRz = setTimeout(paintAllCovers, 200);
+  });
+
+  /* ============================================================
+     GSAP — nav state, reveals, statement split, pinned timeline
+     ============================================================ */
+  if (!window.gsap) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // nav switches to dark text once past the cobalt hero
+  ScrollTrigger.create({
+    trigger: '.hero',
+    start: 'bottom 60px',
+    onEnter: function () { document.getElementById('nav').classList.add('is-dark'); },
+    onLeaveBack: function () { document.getElementById('nav').classList.remove('is-dark'); }
+  });
+  // footer is cobalt again
+  ScrollTrigger.create({
+    trigger: '.footer',
+    start: 'top 60px',
+    onEnter: function () { document.getElementById('nav').classList.remove('is-dark'); },
+    onLeaveBack: function () { document.getElementById('nav').classList.add('is-dark'); }
+  });
+
+  if (prefersReduced) return; // structure stays fully readable without motion
+
+  // hero deck entrance
+  gsap.from('.hero__deck [data-reveal]', { y: 26, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.12, delay: 0.5 });
+
+  // statement: word-by-word rise
+  var head = document.getElementById('statementHead');
+  (function splitWords(el) {
+    var nodes = Array.prototype.slice.call(el.childNodes);
+    el.innerHTML = '';
+    nodes.forEach(function (n) {
+      if (n.nodeType === 3) {
+        n.textContent.split(/\s+/).forEach(function (wd) {
+          if (!wd) return;
+          var s = document.createElement('span');
+          s.className = 'w'; s.textContent = wd;
+          el.appendChild(s); el.appendChild(document.createTextNode(' '));
+        });
+      } else if (n.nodeType === 1) {
+        n.classList.add('w'); el.appendChild(n); el.appendChild(document.createTextNode(' '));
+      }
+    });
+  })(head);
+  gsap.from('#statementHead .w', {
+    yPercent: 110, opacity: 0, duration: 0.7, ease: 'power3.out', stagger: 0.025,
+    scrollTrigger: { trigger: '.statement', start: 'top 72%' }
+  });
+  gsap.from('.statement [data-reveal]', {
+    y: 24, opacity: 0, duration: 0.8, ease: 'power3.out',
+    scrollTrigger: { trigger: '.statement', start: 'top 55%' }
+  });
+
+  // capability rows
+  gsap.utils.toArray('[data-cap]').forEach(function (row, i) {
+    gsap.from(row, {
+      y: 36, opacity: 0, duration: 0.7, ease: 'power3.out', delay: (i % 4) * 0.05,
+      scrollTrigger: { trigger: row, start: 'top 88%' }
+    });
+  });
+
+  // pinned horizontal eras (desktop only)
+  var mm = gsap.matchMedia();
+  mm.add('(min-width: 900px)', function () {
+    var track = document.getElementById('erasTrack');
+    var getX = function () { return -(track.scrollWidth - document.documentElement.clientWidth); };
+    var tween = gsap.to(track, {
+      x: getX, ease: 'none',
+      scrollTrigger: {
+        trigger: '#erasViewport',
+        start: 'top 12%',
+        end: function () { return '+=' + (track.scrollWidth - document.documentElement.clientWidth); },
+        pin: true,
+        scrub: 0.6,
+        invalidateOnRefresh: true
+      }
+    });
+    return function () { tween.scrollTrigger && tween.scrollTrigger.kill(); tween.kill(); gsap.set(track, { x: 0 }); };
+  });
+
+  // work cards
+  gsap.utils.toArray('.case').forEach(function (c, i) {
+    gsap.from(c, {
+      y: 48, opacity: 0, duration: 0.8, ease: 'power3.out', delay: (i % 2) * 0.08,
+      scrollTrigger: { trigger: c, start: 'top 90%' }
+    });
+  });
+
+  // studio + footer
+  gsap.from('.studio__grid > *', {
+    y: 36, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12,
+    scrollTrigger: { trigger: '.studio', start: 'top 75%' }
+  });
+  gsap.from('.footer__big', {
+    yPercent: 18, opacity: 0, duration: 1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.footer', start: 'top 78%' }
+  });
+})();
+</script>
+</body>
+</html>
