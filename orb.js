@@ -20,7 +20,7 @@
  *
  * Opening the .html via file:// blocks this module in Chrome — serve over http:
  *   python3 -m http.server 5500 --directory <project root>
- *   → http://localhost:5500/mindsmack-landing.html?style=glass
+ *   → http://localhost:5500/mindsmack-landing-v1.html?style=glass
  * ========================================================================== */
 
 import * as THREE from 'three';
